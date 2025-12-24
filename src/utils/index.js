@@ -9,6 +9,10 @@ export { brownianMotion, ornsteinUhlenbeck, geometricBrownian } from './stochast
 export { chiSquareTest, entropy, autocorrelation, runTest } from './statistics.js';
 export { perlin2D, valueNoise } from './noise.js';
 export { weightedPick, weightedSample, reservoirSample } from './sampling.js';
+export { saveState, restoreState, cloneGenerator } from './state.js';
+export { SeedSequence, seedMultiple } from './seeding.js';
+export { combinations, permutations, kPermutations, randomCombination, randomPermutation } from './combinatorics.js';
+export { categorical, multinomial, categorical2D } from './categorical.js';
 
 
 

@@ -92,3 +92,25 @@ export function valueNoise(rng: any, x: number, y: number, scale?: number): numb
 export function weightedPick(arr: any[], weights: number[], rng: any): any;
 export function weightedSample(arr: any[], weights: number[], count: number, rng: any): any[];
 export function reservoirSample(stream: any[], k: number, rng: any): any[];
+
+export function saveState(rng: any): any;
+export function restoreState(rng: any, snapshot: any): void;
+export function cloneGenerator(rng: any): any;
+
+export class SeedSequence {
+  constructor(entropy?: string | number | bigint | null);
+  next(): bigint;
+  spawn(n?: number): bigint[];
+}
+
+export function seedMultiple(rngClasses: any[], entropy?: string | number | bigint | null): any[];
+
+export function combinations(arr: any[], k: number): any[][];
+export function permutations(arr: any[]): any[][];
+export function kPermutations(arr: any[], k: number): any[][];
+export function randomCombination(arr: any[], k: number, rng: any): any[];
+export function randomPermutation(arr: any[], rng: any): any[];
+
+export function categorical(rng: any, categories: any[], probabilities: number[]): any;
+export function multinomial(rng: any, n: number, categories: any[], probabilities: number[]): Record<string, number>;
+export function categorical2D(rng: any, matrix: number[][]): number[];
