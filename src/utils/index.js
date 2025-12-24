@@ -7,6 +7,8 @@ export { fromPerformance, fromMemory, fromCrypto, combined } from './entropy.js'
 export { rotateBits, extractBits, hammingWeight, bitRange } from './bits.js';
 export { brownianMotion, ornsteinUhlenbeck, geometricBrownian } from './stochastic.js';
 export { chiSquareTest, entropy, autocorrelation, runTest } from './statistics.js';
+export { perlin2D, valueNoise } from './noise.js';
+export { weightedPick, weightedSample, reservoirSample } from './sampling.js';
 
 
 

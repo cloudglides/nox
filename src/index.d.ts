@@ -26,6 +26,13 @@ export class Splitmix64 {
   nextFloat(): number;
 }
 
+export class PCG64 {
+  constructor(seed?: bigint, inc?: bigint);
+  next(): bigint;
+  nextInt(max?: number): number;
+  nextFloat(): number;
+}
+
 export class Mixer {
   constructor(rng1: any, rng2: any);
   next(): bigint;
@@ -78,3 +85,10 @@ export function chiSquareTest(data: number[], bins?: number): ChiSquareResult;
 export function entropy(data: number[], bins?: number): number;
 export function autocorrelation(data: number[], lag: number): number;
 export function runTest(data: number[], threshold?: number): number;
+
+export function perlin2D(rng: any, x: number, y: number, octaves?: number): number;
+export function valueNoise(rng: any, x: number, y: number, scale?: number): number;
+
+export function weightedPick(arr: any[], weights: number[], rng: any): any;
+export function weightedSample(arr: any[], weights: number[], count: number, rng: any): any[];
+export function reservoirSample(stream: any[], k: number, rng: any): any[];

@@ -1,4 +1,4 @@
-import { Xorshift64, Logistic, Tent, Splitmix64, Mixer } from '../src/index.js';
+import { Xorshift64, Logistic, Tent, Splitmix64, PCG64 } from '../src/index.js';
 import { chiSquareTest, entropy, autocorrelation, runTest } from '../src/utils/statistics.js';
 
 const SAMPLES = 100000;
@@ -29,5 +29,6 @@ const benchmarkGenerator = (name, GeneratorClass, seed) => {
 
 benchmarkGenerator('Xorshift64', Xorshift64, 42);
 benchmarkGenerator('Splitmix64', Splitmix64, 42);
+benchmarkGenerator('PCG64', PCG64, 42);
 benchmarkGenerator('Logistic', Logistic, 0.5);
 benchmarkGenerator('Tent', Tent, 0.5);
