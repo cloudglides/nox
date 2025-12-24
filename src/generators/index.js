@@ -1,4 +1,5 @@
 export { Xorshift64 } from './xorshift64.js';
 export { Logistic } from './logistic.js';
 export { Tent } from './tent.js';
+export { Splitmix64 } from './splitmix64.js';
 export { Mixer } from './mixer.js';
