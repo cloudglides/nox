@@ -1,3 +1,25 @@
+export class RNG {
+  constructor(generator?: any, seed?: number | bigint);
+  next(): any;
+  nextInt(max?: number): number;
+  nextFloat(): number;
+  range(min: number, max: number): number;
+  int(min: number, max: number): number;
+  bool(probability?: number): boolean;
+  pick(arr: any[]): any;
+  shuffle(arr: any[], inPlace?: boolean): any[];
+  batch(count: number, fn: (rng: RNG) => any): any[];
+  floats(count: number): number[];
+  ints(count: number, max?: number): number[];
+}
+
+export function rng(): RNG;
+
+export function fast(seed?: number | bigint): RNG;
+export function quality(seed?: number | bigint): RNG;
+export function chaos(seed?: number | bigint): RNG;
+export function deterministic(seed: number | bigint): RNG;
+
 export class Xorshift64 {
   constructor(seed?: number | bigint);
   next(): bigint;

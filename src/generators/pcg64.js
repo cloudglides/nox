@@ -23,7 +23,7 @@ export class PCG64 {
   }
 
   nextInt(max = 2147483647) {
-    const next = Number(this.next() >>> 1n);
+    const next = Number(this.next() >> 1n);
     return next % max;
   }
 

@@ -1,13 +1,15 @@
-export const shuffle = (arr, rng) => {
+export const shuffle = (arr, rng, inPlace = false) => {
   if (!Array.isArray(arr)) throw new TypeError('First argument must be array');
   if (!rng) throw new Error('RNG required');
   
-  const copy = [...arr];
-  for (let i = copy.length - 1; i > 0; i--) {
+  const target = inPlace ? arr : [...arr];
+  for (let i = target.length - 1; i > 0; i--) {
     const j = rng.nextInt(i + 1);
-    [copy[i], copy[j]] = [copy[j], copy[i]];
+    const temp = target[i];
+    target[i] = target[j];
+    target[j] = temp;
   }
-  return copy;
+  return target;
 };
 
 export const pick = (arr, rng) => {
