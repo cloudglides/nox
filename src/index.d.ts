@@ -55,6 +55,13 @@ export class PCG64 {
   nextFloat(): number;
 }
 
+export class MT19937 {
+  constructor(seed?: number);
+  next(): number;
+  nextInt(max?: number): number;
+  nextFloat(): number;
+}
+
 export class Mixer {
   constructor(rng1: any, rng2: any);
   next(): bigint;
