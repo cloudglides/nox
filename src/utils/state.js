@@ -14,21 +14,28 @@ export const restoreState = (rng, snapshot) => {
 
 export const cloneGenerator = (rng) => {
   const Constructor = rng.constructor;
-  const clone = new Constructor();
-  if (rng.state !== undefined) {
-    clone.state = rng.state;
+  
+  if (rng.constructor.name === 'PCG64') {
+    const clone = new Constructor(rng.state, rng.inc);
+    return clone;
   }
-  if (rng.r !== undefined) {
-    clone.r = rng.r;
+  
+  if (rng.constructor.name === 'Logistic') {
+    const clone = new Constructor(rng.x, rng.r);
+    return clone;
   }
-  if (rng.mu !== undefined) {
-    clone.mu = rng.mu;
+  
+  if (rng.constructor.name === 'Tent') {
+    const clone = new Constructor(rng.x, rng.mu);
+    return clone;
   }
-  if (rng.x !== undefined) {
-    clone.x = rng.x;
+  
+  if (rng.constructor.name === 'Mixer') {
+    const rng1Clone = cloneGenerator(rng.rng1);
+    const rng2Clone = cloneGenerator(rng.rng2);
+    return new Constructor(rng1Clone, rng2Clone);
   }
-  if (rng.inc !== undefined) {
-    clone.inc = rng.inc;
-  }
+  
+  const clone = new Constructor(rng.state);
   return clone;
 };

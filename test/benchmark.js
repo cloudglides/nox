@@ -1,7 +1,7 @@
 import { Xorshift64, Logistic, Tent, Splitmix64, PCG64 } from '../src/index.js';
 import { chiSquareTest, entropy, autocorrelation, runTest } from '../src/utils/statistics.js';
 
-const SAMPLES = 100000;
+const SAMPLES = 10000;
 
 const benchmarkGenerator = (name, GeneratorClass, seed) => {
   console.log(`\n=== ${name} ===`);

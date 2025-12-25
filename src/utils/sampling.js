@@ -1,5 +1,10 @@
 export const weightedPick = (arr, weights, rng) => {
+  if (arr.length === 0) throw new Error('Array cannot be empty');
+  if (arr.length !== weights.length) throw new Error('Array and weights must have same length');
+  
   const total = weights.reduce((a, b) => a + b, 0);
+  if (total <= 0) throw new Error('Weights must sum to positive value');
+  
   let rand = rng.nextFloat() * total;
   
   for (let i = 0; i < arr.length; i++) {
@@ -38,7 +43,10 @@ const weightedPickIndex = (weights, rng) => {
 };
 
 export const reservoirSample = (stream, k, rng) => {
-  const reservoir = stream.slice(0, k);
+  if (k <= 0) throw new Error('k must be positive');
+  if (!stream || stream.length === 0) throw new Error('Stream cannot be empty');
+  
+  const reservoir = stream.slice(0, Math.min(k, stream.length));
   
   for (let i = k; i < stream.length; i++) {
     const j = rng.nextInt(i + 1);

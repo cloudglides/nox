@@ -1,9 +1,13 @@
 export const categorical = (rng, categories, probabilities) => {
+  if (!categories || !probabilities) throw new Error('Categories and probabilities required');
+  if (categories.length === 0) throw new Error('Categories cannot be empty');
   if (probabilities.length !== categories.length) {
     throw new Error('Probabilities and categories must have same length');
   }
 
   const total = probabilities.reduce((a, b) => a + b, 0);
+  if (total <= 0) throw new Error('Probabilities must sum to positive value');
+  
   const normalized = probabilities.map(p => p / total);
 
   let cumsum = 0;

@@ -1,5 +1,8 @@
 export class Xorshift64 {
   constructor(seed = 1) {
+    if (typeof seed !== 'number' && typeof seed !== 'bigint') {
+      throw new TypeError('Seed must be a number or bigint');
+    }
     this.state = BigInt(seed);
     if (this.state === 0n) this.state = 1n;
   }
@@ -14,11 +17,11 @@ export class Xorshift64 {
   }
 
   nextInt(max = 2147483647) {
-    const next = Number(this.next() >>> 1n);
+    const next = Number(this.next() >> 1n);
     return next % max;
   }
 
   nextFloat() {
-    return Number(this.next() >>> 11n) * (1.0 / 9007199254740992.0);
+    return Number(this.next() >> 11n) * (1.0 / 9007199254740992.0);
   }
 }

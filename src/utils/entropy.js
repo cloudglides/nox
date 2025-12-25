@@ -30,5 +30,7 @@ export const combined = () => {
   const perf = fromPerformance();
   const mem = fromMemory();
   const crypto = fromCrypto();
-  return perf ^ mem ^ crypto;
+  
+  const mix = (perf ^ mem ^ crypto) ^ (perf + BigInt(Date.now()));
+  return mix !== 0n ? mix : 1n;
 };

@@ -1,9 +1,9 @@
 export class PCG64 {
   constructor(seed = 1n, inc = 1n) {
     this.state = 0n;
-    this.inc = (inc << 1n) | 1n;
+    this.inc = ((typeof inc === 'number' ? BigInt(inc) : inc) << 1n) | 1n;
     this.step();
-    this.state += seed;
+    this.state += (typeof seed === 'number' ? BigInt(seed) : seed);
     this.step();
   }
 
@@ -28,6 +28,6 @@ export class PCG64 {
   }
 
   nextFloat() {
-    return Number(this.next() >>> 11n) * (1.0 / 9007199254740992.0);
+    return Number(this.next() >> 11n) * (1.0 / 9007199254740992.0);
   }
 }

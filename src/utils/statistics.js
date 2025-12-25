@@ -33,6 +33,9 @@ export const entropy = (data, bins = 10) => {
 };
 
 export const autocorrelation = (data, lag) => {
+  if (lag < 0 || lag >= data.length) throw new Error('Lag out of range');
+  if (data.length < 2) throw new Error('Need at least 2 data points');
+  
   const mean = data.reduce((a, b) => a + b, 0) / data.length;
   let c0 = 0;
   let cl = 0;
@@ -40,6 +43,8 @@ export const autocorrelation = (data, lag) => {
   for (let i = 0; i < data.length; i++) {
     c0 += (data[i] - mean) ** 2;
   }
+  
+  if (c0 === 0) return 0;
   
   for (let i = 0; i < data.length - lag; i++) {
     cl += (data[i] - mean) * (data[i + lag] - mean);

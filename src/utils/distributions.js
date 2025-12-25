@@ -1,15 +1,21 @@
 export const normal = (rng, mean = 0, stddev = 1) => {
-  let u1 = 0;
-  let u2 = 0;
-  while (u1 === 0) u1 = rng.nextFloat();
-  while (u2 === 0) u2 = rng.nextFloat();
+  let u1, u2;
+  do {
+    u1 = rng.nextFloat();
+    u2 = rng.nextFloat();
+  } while (u1 <= 0 || u2 <= 0);
   
   const z0 = Math.sqrt(-2 * Math.log(u1)) * Math.cos(2 * Math.PI * u2);
   return z0 * stddev + mean;
 };
 
 export const exponential = (rng, lambda = 1) => {
-  const u = rng.nextFloat();
+  if (lambda <= 0) throw new Error('Lambda must be positive');
+  
+  let u = rng.nextFloat();
+  while (u === 0 || u === 1) {
+    u = rng.nextFloat();
+  }
   return -Math.log(1 - u) / lambda;
 };
 
