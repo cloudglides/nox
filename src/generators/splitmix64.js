@@ -16,6 +16,7 @@ export class Splitmix64 {
   }
 
   nextFloat() {
-    return Number(this.next() >> 11n) * (1.0 / 9007199254740992.0);
+    const val = this.next() & ((1n << 53n) - 1n);
+    return Number(val) / 9007199254740992.0;
   }
 }
