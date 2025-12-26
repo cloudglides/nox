@@ -36,8 +36,7 @@ export class RNG {
      }
      if (min > max) [min, max] = [max, min];
      const range = max - min + 1;
-     let val = Math.floor(this.nextFloat() * range);
-     return val + min;
+     return min + this.nextInt(range);
    }
 
   bool(probability = 0.5) {

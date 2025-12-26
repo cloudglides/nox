@@ -1,5 +1,6 @@
 let cryptoCache = null;
 let cryptoCacheTime = 0;
+let cryptoCacheBytes = 0;
 
 const isNode = typeof process !== 'undefined' && process.versions && process.versions.node;
 const isBrowser = typeof window !== 'undefined';
@@ -46,12 +47,12 @@ export const fromMemory = () => {
 };
 
 export const fromCrypto = (bytes = 8) => {
-  try {
-    const now = Date.now();
-    
-    if (cryptoCache && (now - cryptoCacheTime) < 100) {
-      return cryptoCache;
-    }
+   try {
+     const now = Date.now();
+     
+     if (cryptoCache && (now - cryptoCacheTime) < 100 && cryptoCacheBytes === bytes) {
+       return cryptoCache;
+     }
     
     let val = 0n;
     
@@ -72,6 +73,7 @@ export const fromCrypto = (bytes = 8) => {
     
     cryptoCache = val;
     cryptoCacheTime = now;
+    cryptoCacheBytes = bytes;
     return val;
   } catch {
     return BigInt(Math.random() * Number.MAX_SAFE_INTEGER);
@@ -91,6 +93,7 @@ export const combined = () => {
 };
 
 export const clearCryptoCache = () => {
-  cryptoCache = null;
-  cryptoCacheTime = 0;
-};
+   cryptoCache = null;
+   cryptoCacheTime = 0;
+   cryptoCacheBytes = 0;
+ };

@@ -1,39 +1,4 @@
 export const weightedPick = (arr, weights, rng) => {
-  if (!Array.isArray(arr) || arr.length === 0) {
-    throw new TypeError('arr must be a non-empty array');
-  }
-  if (!Array.isArray(weights) || weights.length === 0) {
-    throw new TypeError('weights must be a non-empty array');
-  }
-  if (arr.length !== weights.length) {
-    throw new Error('arr and weights must have same length');
-  }
-  if (!rng || typeof rng.nextFloat !== 'function') {
-    throw new TypeError('rng must be an RNG instance');
-  }
-  
-  const total = weights.reduce((a, b) => {
-    if (typeof a !== 'number' || typeof b !== 'number') {
-      throw new TypeError('All weights must be numbers');
-    }
-    return a + b;
-  }, 0);
-  
-  if (total <= 0) {
-    throw new Error('Weights must sum to positive value');
-  }
-  
-  let rand = rng.nextFloat() * total;
-  
-  for (let i = 0; i < arr.length; i++) {
-    rand -= weights[i];
-    if (rand <= 0) return arr[i];
-  }
-  
-  return arr[arr.length - 1];
-};
-
-export const weightedSample = (arr, weights, count, rng) => {
    if (!Array.isArray(arr) || arr.length === 0) {
      throw new TypeError('arr must be a non-empty array');
    }
@@ -43,34 +8,77 @@ export const weightedSample = (arr, weights, count, rng) => {
    if (arr.length !== weights.length) {
      throw new Error('arr and weights must have same length');
    }
-   if (typeof count !== 'number' || !Number.isInteger(count)) {
-     throw new TypeError('count must be an integer');
-   }
-   if (count <= 0) {
-     return [];
-   }
    if (!rng || typeof rng.nextFloat !== 'function') {
      throw new TypeError('rng must be an RNG instance');
    }
    
-   const result = [];
-   const len = arr.length;
-   if (count >= len) {
-     return [...arr];
+   let total = 0;
+   for (let i = 0; i < weights.length; i++) {
+     if (typeof weights[i] !== 'number') {
+       throw new TypeError('All weights must be numbers');
+     }
+     total += weights[i];
    }
    
-   const remaining = [...arr];
-   const remainingWeights = [...weights];
-   
-   for (let i = 0; i < count && remaining.length > 0; i++) {
-     const idx = weightedPickIndex(remainingWeights, rng);
-     result.push(remaining[idx]);
-     remaining.splice(idx, 1);
-     remainingWeights.splice(idx, 1);
+   if (total <= 0) {
+     throw new Error('Weights must sum to positive value');
    }
    
-   return result;
+   let rand = rng.nextFloat() * total;
+   let cumsum = 0;
+   
+   for (let i = 0; i < arr.length; i++) {
+     cumsum += weights[i];
+     if (rand < cumsum) return arr[i];
+   }
+   
+   return arr[arr.length - 1];
  };
+
+export const weightedSample = (arr, weights, count, rng) => {
+    if (!Array.isArray(arr) || arr.length === 0) {
+      throw new TypeError('arr must be a non-empty array');
+    }
+    if (!Array.isArray(weights) || weights.length === 0) {
+      throw new TypeError('weights must be a non-empty array');
+    }
+    if (arr.length !== weights.length) {
+      throw new Error('arr and weights must have same length');
+    }
+    if (typeof count !== 'number' || !Number.isInteger(count)) {
+      throw new TypeError('count must be an integer');
+    }
+    if (count <= 0) {
+      return [];
+    }
+    if (!rng || typeof rng.nextFloat !== 'function') {
+      throw new TypeError('rng must be an RNG instance');
+    }
+    
+    const len = arr.length;
+    if (count >= len) {
+      return [...arr];
+    }
+    
+    const remaining = [...arr];
+    const remainingWeights = [...weights];
+    const result = [];
+    
+    for (let i = 0; i < count; i++) {
+      const idx = weightedPickIndex(remainingWeights.slice(i), rng);
+      result.push(remaining[i + idx]);
+      
+      const temp = remaining[i];
+      remaining[i] = remaining[i + idx];
+      remaining[i + idx] = temp;
+      
+      const tempW = remainingWeights[i];
+      remainingWeights[i] = remainingWeights[i + idx];
+      remainingWeights[i + idx] = tempW;
+    }
+    
+    return result;
+  };
 
 const weightedPickIndex = (weights, rng) => {
   const total = weights.reduce((a, b) => a + b, 0);

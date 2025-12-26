@@ -34,29 +34,29 @@ export const pick = (arr, rng) => {
 };
 
 export const sample = (arr, count, rng) => {
-   if (!Array.isArray(arr)) {
-     throw new TypeError('First argument must be array');
-   }
-   if (typeof count !== 'number' || !Number.isInteger(count)) {
-     throw new TypeError('Sample count must be an integer');
-   }
-   if (count <= 0) {
-     throw new Error('Sample count must be positive');
-   }
-   if (count > arr.length) {
-     throw new Error('Sample count exceeds array length');
-   }
-   if (!rng || typeof rng.nextInt !== 'function') {
-     throw new TypeError('RNG instance required');
-   }
-   
-   const copy = [...arr];
-   const len = copy.length;
-   for (let i = len - 1; i >= len - count; i--) {
-     const j = rng.nextInt(i + 1);
-     const temp = copy[i];
-     copy[i] = copy[j];
-     copy[j] = temp;
-   }
-   return copy.slice(len - count);
- };
+    if (!Array.isArray(arr)) {
+      throw new TypeError('First argument must be array');
+    }
+    if (typeof count !== 'number' || !Number.isInteger(count)) {
+      throw new TypeError('Sample count must be an integer');
+    }
+    if (count <= 0) {
+      throw new Error('Sample count must be positive');
+    }
+    if (count > arr.length) {
+      throw new Error('Sample count exceeds array length');
+    }
+    if (!rng || typeof rng.nextInt !== 'function') {
+      throw new TypeError('RNG instance required');
+    }
+    
+    const copy = [...arr];
+    const len = copy.length;
+    for (let i = len - 1; i > len - count - 1; i--) {
+      const j = rng.nextInt(i + 1);
+      const temp = copy[i];
+      copy[i] = copy[j];
+      copy[j] = temp;
+    }
+    return copy.slice(len - count);
+  };
