@@ -1,23 +1,25 @@
+const TWO_PI = 2 * Math.PI;
+
 export const normal = (rng, mean = 0, stddev = 1) => {
-  if (!rng || typeof rng.nextFloat !== 'function') {
-    throw new TypeError('First argument must be RNG instance');
-  }
-  if (typeof mean !== 'number' || typeof stddev !== 'number') {
-    throw new TypeError('mean and stddev must be numbers');
-  }
-  if (stddev <= 0) {
-    throw new Error('stddev must be positive');
-  }
-  
-  let u1, u2;
-  do {
-    u1 = rng.nextFloat();
-    u2 = rng.nextFloat();
-  } while (u1 <= 0 || u2 <= 0);
-  
-  const z0 = Math.sqrt(-2 * Math.log(u1)) * Math.cos(2 * Math.PI * u2);
-  return z0 * stddev + mean;
-};
+   if (!rng || typeof rng.nextFloat !== 'function') {
+     throw new TypeError('First argument must be RNG instance');
+   }
+   if (typeof mean !== 'number' || typeof stddev !== 'number') {
+     throw new TypeError('mean and stddev must be numbers');
+   }
+   if (stddev <= 0) {
+     throw new Error('stddev must be positive');
+   }
+   
+   let u1, u2;
+   do {
+     u1 = rng.nextFloat();
+     u2 = rng.nextFloat();
+   } while (u1 <= 0 || u2 <= 0);
+   
+   const z0 = Math.sqrt(-2 * Math.log(u1)) * Math.cos(TWO_PI * u2);
+   return z0 * stddev + mean;
+ };
 
 export const exponential = (rng, lambda = 1) => {
   if (!rng || typeof rng.nextFloat !== 'function') {

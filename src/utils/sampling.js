@@ -34,38 +34,43 @@ export const weightedPick = (arr, weights, rng) => {
 };
 
 export const weightedSample = (arr, weights, count, rng) => {
-  if (!Array.isArray(arr) || arr.length === 0) {
-    throw new TypeError('arr must be a non-empty array');
-  }
-  if (!Array.isArray(weights) || weights.length === 0) {
-    throw new TypeError('weights must be a non-empty array');
-  }
-  if (arr.length !== weights.length) {
-    throw new Error('arr and weights must have same length');
-  }
-  if (typeof count !== 'number' || !Number.isInteger(count)) {
-    throw new TypeError('count must be an integer');
-  }
-  if (count < 0) {
-    throw new RangeError('count must be non-negative');
-  }
-  if (!rng || typeof rng.nextFloat !== 'function') {
-    throw new TypeError('rng must be an RNG instance');
-  }
-  
-  const result = [];
-  const remaining = [...arr];
-  const remainingWeights = [...weights];
-  
-  for (let i = 0; i < count && remaining.length > 0; i++) {
-    const idx = weightedPickIndex(remainingWeights, rng);
-    result.push(remaining[idx]);
-    remaining.splice(idx, 1);
-    remainingWeights.splice(idx, 1);
-  }
-  
-  return result;
-};
+   if (!Array.isArray(arr) || arr.length === 0) {
+     throw new TypeError('arr must be a non-empty array');
+   }
+   if (!Array.isArray(weights) || weights.length === 0) {
+     throw new TypeError('weights must be a non-empty array');
+   }
+   if (arr.length !== weights.length) {
+     throw new Error('arr and weights must have same length');
+   }
+   if (typeof count !== 'number' || !Number.isInteger(count)) {
+     throw new TypeError('count must be an integer');
+   }
+   if (count <= 0) {
+     return [];
+   }
+   if (!rng || typeof rng.nextFloat !== 'function') {
+     throw new TypeError('rng must be an RNG instance');
+   }
+   
+   const result = [];
+   const len = arr.length;
+   if (count >= len) {
+     return [...arr];
+   }
+   
+   const remaining = [...arr];
+   const remainingWeights = [...weights];
+   
+   for (let i = 0; i < count && remaining.length > 0; i++) {
+     const idx = weightedPickIndex(remainingWeights, rng);
+     result.push(remaining[idx]);
+     remaining.splice(idx, 1);
+     remainingWeights.splice(idx, 1);
+   }
+   
+   return result;
+ };
 
 const weightedPickIndex = (weights, rng) => {
   const total = weights.reduce((a, b) => a + b, 0);

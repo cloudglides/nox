@@ -14,24 +14,24 @@ export class Splitmix64 {
     if (max <= 0) {
       throw new Error('max must be positive');
     }
-    if (!Number.isInteger(max)) {
-      throw new TypeError('max must be an integer');
+    
+    if (max < 65536) {
+      return Number(this.next() & 0xFFFFn) % max;
     }
     
     const maxBig = BigInt(max);
-    const mask = (1n << 64n) - 1n;
-    const limit = (mask / maxBig) * maxBig;
+    const limit = ((1n << 64n) / maxBig) * maxBig;
     
-    let val = this.next() & mask;
+    let val = this.next();
     while (val >= limit) {
-      val = this.next() & mask;
+      val = this.next();
     }
     
     return Number(val % maxBig);
   }
 
   nextFloat() {
-    const val = this.next() & ((1n << 53n) - 1n);
-    return Number(val) / 9007199254740992.0;
+    const val = this.next() & 0x1FFFFFFFFFFFFFn;
+    return Number(val) * (1.0 / 9007199254740992.0);
   }
 }

@@ -55,15 +55,12 @@ export class MT19937 {
     if (max <= 0) {
       throw new Error('max must be positive');
     }
-    if (!Number.isInteger(max)) {
-      throw new TypeError('max must be an integer');
+    
+    if (max < 65536) {
+      return this.next() & 0xFFFF % max;
     }
     
-    if (max > 0x100000000) {
-      throw new Error('max must be <= 2^32');
-    }
-    
-    const limit = Math.floor((0x100000000 - (0x100000000 % max)) / max) * max;
+    const limit = Math.floor((0x100000000 / max)) * max;
     let val;
     
     do {
