@@ -1,29 +1,10 @@
 let cryptoCache = null;
 let cryptoCacheTime = 0;
 
-const isNode = typeof process !== 'undefined' && process.versions && process.versions.node;
-const isBrowser = typeof window !== 'undefined';
-
-let performanceImpl = typeof performance !== 'undefined' ? performance : null;
-let randomBytesImpl = null;
-
-// Only require in true Node environment
-if (isNode && !isBrowser) {
-  try {
-    // Avoid static analysis by constructing module name dynamically
-    const moduleName = ['perf', '_hooks'].join('');
-    performanceImpl = require(moduleName).performance;
-  } catch {}
-  
-  try {
-    randomBytesImpl = require('crypto').randomBytes;
-  } catch {}
-}
-
 export const fromPerformance = () => {
   try {
-    if (performanceImpl && typeof performanceImpl.now === 'function') {
-      const t = performanceImpl.now();
+    if (typeof performance !== 'undefined' && performance.now) {
+      const t = performance.now();
       return BigInt(Math.floor(t * 1000)) ^ BigInt(Math.floor(t * 1000000) % 1000000);
     }
   } catch {
@@ -33,15 +14,6 @@ export const fromPerformance = () => {
 };
 
 export const fromMemory = () => {
-  try {
-    if (isNode && !isBrowser && typeof process !== 'undefined' && process.memoryUsage) {
-      const mem = process.memoryUsage();
-      const total = mem.heapUsed + mem.external + mem.heapTotal;
-      return BigInt(Math.floor(total)) ^ BigInt(Date.now());
-    }
-  } catch {
-    // fallback
-  }
   return BigInt(Date.now());
 };
 
@@ -55,12 +27,7 @@ export const fromCrypto = (bytes = 8) => {
     
     let val = 0n;
     
-    if (randomBytesImpl) {
-      const buf = randomBytesImpl(Math.max(bytes, 8));
-      for (let i = 0; i < buf.length; i++) {
-        val = (val << 8n) | BigInt(buf[i]);
-      }
-    } else if (typeof crypto !== 'undefined' && crypto.getRandomValues) {
+    if (typeof crypto !== 'undefined' && crypto.getRandomValues) {
       const arr = new Uint8Array(Math.max(bytes, 8));
       crypto.getRandomValues(arr);
       for (let i = 0; i < arr.length; i++) {

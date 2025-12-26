@@ -5,7 +5,7 @@ export default defineConfig({
   plugins: [react()],
   build: {
     rollupOptions: {
-      external: ['perf_hooks', 'crypto']
+      external: ['crypto']
     }
   }
 })
