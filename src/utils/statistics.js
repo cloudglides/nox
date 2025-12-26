@@ -1,36 +1,49 @@
 export const chiSquareTest = (data, bins = 10) => {
-  const histogram = new Array(bins).fill(0);
-  for (const val of data) {
-    const idx = Math.floor(val * bins);
-    histogram[Math.min(idx, bins - 1)]++;
-  }
-  
-  const expected = data.length / bins;
-  let chi2 = 0;
-  for (const count of histogram) {
-    chi2 += ((count - expected) ** 2) / expected;
-  }
-  
-  return { chi2, expected, histogram };
-};
+   if (!Array.isArray(data) || data.length === 0) {
+     throw new Error('Data must be non-empty array');
+   }
+   if (bins <= 0 || !Number.isInteger(bins)) {
+     throw new Error('Bins must be positive integer');
+   }
+   
+   const histogram = new Array(bins).fill(0);
+   for (const val of data) {
+     const idx = Math.floor(val * bins);
+     histogram[Math.min(idx, bins - 1)]++;
+   }
+   
+   const expected = data.length / bins;
+   let chi2 = 0;
+   for (const count of histogram) {
+     chi2 += ((count - expected) ** 2) / expected;
+   }
+   
+   return { chi2, expected, histogram };
+ };
 
 export const entropy = (data, bins = 10) => {
-  const histogram = new Array(bins).fill(0);
-  for (const val of data) {
-    const idx = Math.floor(val * bins);
-    histogram[Math.min(idx, bins - 1)]++;
-  }
-  
-  let ent = 0;
-  const p = 1 / data.length;
-  for (const count of histogram) {
-    if (count > 0) {
-      const pi = count / data.length;
-      ent -= pi * Math.log2(pi);
-    }
-  }
-  return ent;
-};
+   if (!Array.isArray(data) || data.length === 0) {
+     throw new Error('Data must be non-empty array');
+   }
+   if (bins <= 0) {
+     throw new Error('Bins must be positive');
+   }
+   
+   const histogram = new Array(bins).fill(0);
+   for (const val of data) {
+     const idx = Math.floor(val * bins);
+     histogram[Math.min(idx, bins - 1)]++;
+   }
+   
+   let ent = 0;
+   for (const count of histogram) {
+     if (count > 0) {
+       const pi = count / data.length;
+       ent -= pi * Math.log2(pi);
+     }
+   }
+   return ent;
+ };
 
 export const autocorrelation = (data, lag) => {
   if (lag < 0 || lag >= data.length) throw new Error('Lag out of range');
@@ -110,18 +123,21 @@ export const meanTest = (data, expectedMean = 0.5) => {
 };
 
 export const varianceTest = (data, expectedVariance = 1 / 12) => {
-  if (!Array.isArray(data) || data.length === 0) {
-    throw new Error('Data must be non-empty array');
-  }
-  
-  const mean = data.reduce((a, b) => a + b, 0) / data.length;
-  const variance = data.reduce((a, v) => a + (v - mean) ** 2, 0) / data.length;
-  const chi2 = (data.length - 1) * variance / expectedVariance;
-  
-  return {
-    variance,
-    expectedVariance,
-    chi2Statistic: chi2,
-    degreesOfFreedom: data.length - 1
-  };
-};
+   if (!Array.isArray(data) || data.length === 0) {
+     throw new Error('Data must be non-empty array');
+   }
+   if (data.length < 2) {
+     throw new Error('Data must have at least 2 elements');
+   }
+   
+   const mean = data.reduce((a, b) => a + b, 0) / data.length;
+   const sampleVariance = data.reduce((a, v) => a + (v - mean) ** 2, 0) / (data.length - 1);
+   const chi2 = (data.length - 1) * sampleVariance / expectedVariance;
+   
+   return {
+     variance: sampleVariance,
+     expectedVariance,
+     chi2Statistic: chi2,
+     degreesOfFreedom: data.length - 1
+   };
+ };

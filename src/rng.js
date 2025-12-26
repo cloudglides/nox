@@ -28,15 +28,17 @@ export class RNG {
   }
 
   int(min, max) {
-    if (typeof min !== 'number' || typeof max !== 'number') {
-      throw new TypeError('int() requires two number arguments');
-    }
-    if (!Number.isInteger(min) || !Number.isInteger(max)) {
-      throw new TypeError('int() arguments must be integers');
-    }
-    if (min > max) [min, max] = [max, min];
-    return Math.floor(this.nextFloat() * (max - min + 1)) + min;
-  }
+     if (typeof min !== 'number' || typeof max !== 'number') {
+       throw new TypeError('int() requires two number arguments');
+     }
+     if (!Number.isInteger(min) || !Number.isInteger(max)) {
+       throw new TypeError('int() arguments must be integers');
+     }
+     if (min > max) [min, max] = [max, min];
+     const range = max - min + 1;
+     let val = Math.floor(this.nextFloat() * range);
+     return val + min;
+   }
 
   bool(probability = 0.5) {
     if (typeof probability !== 'number') {

@@ -80,27 +80,30 @@ const weightedPickIndex = (weights, rng) => {
 };
 
 export const reservoirSample = (stream, k, rng) => {
-  if (!Array.isArray(stream) || stream.length === 0) {
-    throw new TypeError('stream must be a non-empty array');
-  }
-  if (typeof k !== 'number' || !Number.isInteger(k)) {
-    throw new TypeError('k must be an integer');
-  }
-  if (k <= 0) {
-    throw new RangeError('k must be positive');
-  }
-  if (!rng || typeof rng.nextInt !== 'function') {
-    throw new TypeError('rng must be an RNG instance');
-  }
-  
-  const reservoir = stream.slice(0, Math.min(k, stream.length));
-  
-  for (let i = k; i < stream.length; i++) {
-    const j = rng.nextInt(i + 1);
-    if (j < k) {
-      reservoir[j] = stream[i];
-    }
-  }
-  
-  return reservoir;
-};
+   if (!Array.isArray(stream) || stream.length === 0) {
+     throw new TypeError('stream must be a non-empty array');
+   }
+   if (typeof k !== 'number' || !Number.isInteger(k)) {
+     throw new TypeError('k must be an integer');
+   }
+   if (k <= 0) {
+     throw new RangeError('k must be positive');
+   }
+   if (k > stream.length) {
+     throw new RangeError('k cannot exceed stream length');
+   }
+   if (!rng || typeof rng.nextInt !== 'function') {
+     throw new TypeError('rng must be an RNG instance');
+   }
+   
+   const reservoir = stream.slice(0, k);
+   
+   for (let i = k; i < stream.length; i++) {
+     const j = rng.nextInt(i + 1);
+     if (j < k) {
+       reservoir[j] = stream[i];
+     }
+   }
+   
+   return reservoir;
+ };

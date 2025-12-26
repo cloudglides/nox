@@ -7,11 +7,11 @@ export interface IGenerator {
 export type GeneratorConstructor = new (seed?: number | bigint) => IGenerator;
 
 export class RNG {
-  gen: IGenerator;
-  constructor(generator?: GeneratorConstructor | IGenerator, seed?: number | bigint);
-  next(): any;
-  nextInt(max?: number): number;
-  nextFloat(): number;
+   gen: IGenerator;
+   constructor(generator?: GeneratorConstructor | IGenerator, seed?: number | bigint);
+   next(): number | bigint;
+   nextInt(max?: number): number;
+   nextFloat(): number;
   int(min: number, max: number): number;
   bool(probability?: number): boolean;
   range(min: number, max: number, step?: number): number;

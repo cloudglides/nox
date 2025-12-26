@@ -20,15 +20,20 @@ export class Xorshift64 {
     if (max <= 0) {
       throw new Error('max must be positive');
     }
-    
-    let val = this.next() & 0x7fffffffffffffffn;
-    const limit = (0xffffffffffffffffn / BigInt(max)) * BigInt(max);
-    
-    while (val >= limit) {
-      val = this.next() & 0x7fffffffffffffffn;
+    if (!Number.isInteger(max)) {
+      throw new TypeError('max must be an integer');
     }
     
-    return Number(val % BigInt(max));
+    const maxBig = BigInt(max);
+    const mask = (1n << 64n) - 1n;
+    const limit = (mask / maxBig) * maxBig;
+    
+    let val = this.next() & mask;
+    while (val >= limit) {
+      val = this.next() & mask;
+    }
+    
+    return Number(val % maxBig);
   }
 
   nextFloat() {
