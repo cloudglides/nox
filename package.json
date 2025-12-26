@@ -5,6 +5,12 @@
   "type": "module",
   "main": "src/index.js",
   "types": "src/index.d.ts",
+  "exports": {
+    ".": {
+      "node": "./src/index.js",
+      "default": "./src/index.js"
+    }
+  },
   "scripts": {
     "test": "node test/basic.js",
     "bench": "node test/benchmark.js"

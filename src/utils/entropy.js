@@ -1,19 +1,58 @@
-import { performance } from 'perf_hooks';
-import { randomBytes } from 'crypto';
-
 let cryptoCache = null;
 let cryptoCacheTime = 0;
 
+const isNode = typeof process !== 'undefined' && process.versions && process.versions.node;
+
+let performanceImpl = null;
+let randomBytesImpl = null;
+
+let initializing = false;
+
+const initializeNodeModules = async () => {
+  if (initializing) return;
+  initializing = true;
+  
+  if (isNode) {
+    try {
+      const mod = await import('./entropy-node.js');
+      performanceImpl = mod.getPerformance();
+      randomBytesImpl = mod.getRandomBytes();
+    } catch {
+      // modules not available
+    }
+  }
+};
+
+if (isNode) {
+  initializeNodeModules();
+}
+
+if (typeof performance !== 'undefined') {
+  performanceImpl = performance;
+}
+
 export const fromPerformance = () => {
-  const t = performance.now();
-  return BigInt(Math.floor(t * 1000)) ^ BigInt(Math.floor(t * 1000000) % 1000000);
+  try {
+    const perf = performanceImpl;
+    if (perf) {
+      const t = perf.now();
+      return BigInt(Math.floor(t * 1000)) ^ BigInt(Math.floor(t * 1000000) % 1000000);
+    }
+  } catch {
+    // fallback
+  }
+  return BigInt(Date.now());
 };
 
 export const fromMemory = () => {
-  if (typeof process !== 'undefined' && process.memoryUsage) {
-    const mem = process.memoryUsage();
-    const total = mem.heapUsed + mem.external + mem.heapTotal;
-    return BigInt(Math.floor(total)) ^ BigInt(Date.now());
+  try {
+    if (isNode && typeof process !== 'undefined' && process.memoryUsage) {
+      const mem = process.memoryUsage();
+      const total = mem.heapUsed + mem.external + mem.heapTotal;
+      return BigInt(Math.floor(total)) ^ BigInt(Date.now());
+    }
+  } catch {
+    // fallback
   }
   return BigInt(Date.now());
 };
@@ -21,14 +60,26 @@ export const fromMemory = () => {
 export const fromCrypto = (bytes = 8) => {
   try {
     const now = Date.now();
+    
     if (cryptoCache && (now - cryptoCacheTime) < 100) {
       return cryptoCache;
     }
     
-    const buf = randomBytes(Math.max(bytes, 8));
     let val = 0n;
-    for (let i = 0; i < buf.length; i++) {
-      val = (val << 8n) | BigInt(buf[i]);
+    
+    if (randomBytesImpl) {
+      const buf = randomBytesImpl(Math.max(bytes, 8));
+      for (let i = 0; i < buf.length; i++) {
+        val = (val << 8n) | BigInt(buf[i]);
+      }
+    } else if (typeof crypto !== 'undefined' && crypto.getRandomValues) {
+      const arr = new Uint8Array(Math.max(bytes, 8));
+      crypto.getRandomValues(arr);
+      for (let i = 0; i < arr.length; i++) {
+        val = (val << 8n) | BigInt(arr[i]);
+      }
+    } else {
+      return BigInt(Math.random() * Number.MAX_SAFE_INTEGER);
     }
     
     cryptoCache = val;
