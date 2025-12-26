@@ -1,6 +1,9 @@
 import { performance } from 'perf_hooks';
 import { randomBytes } from 'crypto';
 
+let cryptoCache = null;
+let cryptoCacheTime = 0;
+
 export const fromPerformance = () => {
   const t = performance.now();
   return BigInt(Math.floor(t * 1000)) ^ BigInt(Math.floor(t * 1000000) % 1000000);
@@ -17,11 +20,19 @@ export const fromMemory = () => {
 
 export const fromCrypto = (bytes = 8) => {
   try {
+    const now = Date.now();
+    if (cryptoCache && (now - cryptoCacheTime) < 100) {
+      return cryptoCache;
+    }
+    
     const buf = randomBytes(Math.max(bytes, 8));
     let val = 0n;
     for (let i = 0; i < buf.length; i++) {
       val = (val << 8n) | BigInt(buf[i]);
     }
+    
+    cryptoCache = val;
+    cryptoCacheTime = now;
     return val;
   } catch {
     return BigInt(Math.random() * Number.MAX_SAFE_INTEGER);
@@ -38,4 +49,9 @@ export const combined = () => {
   mix = (mix * 0xff51afd7ed558ccdn) & ((1n << 64n) - 1n);
   
   return mix !== 0n ? mix : 1n;
+};
+
+export const clearCryptoCache = () => {
+  cryptoCache = null;
+  cryptoCacheTime = 0;
 };

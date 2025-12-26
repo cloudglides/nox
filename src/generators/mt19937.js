@@ -13,11 +13,13 @@ export class MT19937 {
   }
 
   init(seed) {
-    this.mt[0] = seed >>> 0;
+    const s = typeof seed === 'bigint' ? Number(seed) : seed;
+    this.mt[0] = (s >>> 0) & 0xffffffff;
+    
     for (let i = 1; i < this.N; i++) {
-      const s = this.mt[i - 1] ^ (this.mt[i - 1] >>> 30);
-      this.mt[i] = (((((s & 0xffff0000) >>> 16) * 1812433253) << 16) + (s & 0xffff) * 1812433253) + i;
-      this.mt[i] >>>= 0;
+      const x = this.mt[i - 1] ^ (this.mt[i - 1] >>> 30);
+      this.mt[i] = (((((x & 0xffff0000) >>> 16) * 1812433253) << 16) + (x & 0xffff) * 1812433253) + i;
+      this.mt[i] = this.mt[i] >>> 0;
     }
   }
 
@@ -50,7 +52,18 @@ export class MT19937 {
   }
 
   nextInt(max = 2147483647) {
-    return this.next() % max;
+    if (max <= 0) {
+      throw new Error('max must be positive');
+    }
+    
+    const limit = Math.floor(0xffffffff / max) * max;
+    let val;
+    
+    do {
+      val = this.next();
+    } while (val >= limit);
+    
+    return val % max;
   }
 
   nextFloat() {

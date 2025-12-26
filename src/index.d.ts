@@ -16,6 +16,10 @@ export class RNG {
   bool(probability?: number): boolean;
   range(min: number, max: number, step?: number): number;
   choice<T>(arr: T[]): T;
+  batch<T>(count: number, fn: (rng: RNG, index: number) => T): T[];
+  floats(count: number): number[];
+  ints(count: number, max?: number): number[];
+  bools(count: number, probability?: number): boolean[];
 }
 
 export function rng(): RNG;
@@ -33,6 +37,32 @@ export function sample<T>(arr: T[], count: number, rng: RNG | IGenerator): T[];
 export function saveState(rng: RNG): any;
 export function restoreState(rng: RNG, snapshot: any): void;
 export function cloneGenerator(rng: RNG): RNG;
+
+export function weightedPick<T>(arr: T[], weights: number[], rng: RNG | IGenerator): T;
+export function weightedSample<T>(arr: T[], weights: number[], count: number, rng: RNG | IGenerator): T[];
+export function reservoirSample<T>(stream: T[], k: number, rng: RNG | IGenerator): T[];
+
+export interface TestResult {
+  mean?: number;
+  variance?: number;
+  stdDev?: number;
+  tStatistic?: number;
+  expectedMean?: number;
+  expectedVariance?: number;
+  chi2Statistic?: number;
+  degreesOfFreedom?: number;
+}
+
+export interface KSTestResult {
+  statistic: number;
+  pass_0_10: boolean;
+  pass_0_05: boolean;
+  pass_0_01: boolean;
+}
+
+export function meanTest(data: number[], expectedMean?: number): TestResult;
+export function varianceTest(data: number[], expectedVariance?: number): TestResult;
+export function kolmogorovSmirnovTest(data: number[]): KSTestResult;
 
 export class Xorshift64 {
   constructor(seed?: number | bigint);

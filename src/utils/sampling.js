@@ -1,9 +1,27 @@
 export const weightedPick = (arr, weights, rng) => {
-  if (arr.length === 0) throw new Error('Array cannot be empty');
-  if (arr.length !== weights.length) throw new Error('Array and weights must have same length');
+  if (!Array.isArray(arr) || arr.length === 0) {
+    throw new TypeError('arr must be a non-empty array');
+  }
+  if (!Array.isArray(weights) || weights.length === 0) {
+    throw new TypeError('weights must be a non-empty array');
+  }
+  if (arr.length !== weights.length) {
+    throw new Error('arr and weights must have same length');
+  }
+  if (!rng || typeof rng.nextFloat !== 'function') {
+    throw new TypeError('rng must be an RNG instance');
+  }
   
-  const total = weights.reduce((a, b) => a + b, 0);
-  if (total <= 0) throw new Error('Weights must sum to positive value');
+  const total = weights.reduce((a, b) => {
+    if (typeof a !== 'number' || typeof b !== 'number') {
+      throw new TypeError('All weights must be numbers');
+    }
+    return a + b;
+  }, 0);
+  
+  if (total <= 0) {
+    throw new Error('Weights must sum to positive value');
+  }
   
   let rand = rng.nextFloat() * total;
   
@@ -16,6 +34,25 @@ export const weightedPick = (arr, weights, rng) => {
 };
 
 export const weightedSample = (arr, weights, count, rng) => {
+  if (!Array.isArray(arr) || arr.length === 0) {
+    throw new TypeError('arr must be a non-empty array');
+  }
+  if (!Array.isArray(weights) || weights.length === 0) {
+    throw new TypeError('weights must be a non-empty array');
+  }
+  if (arr.length !== weights.length) {
+    throw new Error('arr and weights must have same length');
+  }
+  if (typeof count !== 'number' || !Number.isInteger(count)) {
+    throw new TypeError('count must be an integer');
+  }
+  if (count < 0) {
+    throw new RangeError('count must be non-negative');
+  }
+  if (!rng || typeof rng.nextFloat !== 'function') {
+    throw new TypeError('rng must be an RNG instance');
+  }
+  
   const result = [];
   const remaining = [...arr];
   const remainingWeights = [...weights];
@@ -43,8 +80,18 @@ const weightedPickIndex = (weights, rng) => {
 };
 
 export const reservoirSample = (stream, k, rng) => {
-  if (k <= 0) throw new Error('k must be positive');
-  if (!stream || stream.length === 0) throw new Error('Stream cannot be empty');
+  if (!Array.isArray(stream) || stream.length === 0) {
+    throw new TypeError('stream must be a non-empty array');
+  }
+  if (typeof k !== 'number' || !Number.isInteger(k)) {
+    throw new TypeError('k must be an integer');
+  }
+  if (k <= 0) {
+    throw new RangeError('k must be positive');
+  }
+  if (!rng || typeof rng.nextInt !== 'function') {
+    throw new TypeError('rng must be an RNG instance');
+  }
   
   const reservoir = stream.slice(0, Math.min(k, stream.length));
   

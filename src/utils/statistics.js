@@ -61,3 +61,67 @@ export const runTest = (data, threshold = 0.5) => {
   }
   return runs;
 };
+
+export const kolmogorovSmirnovTest = (data) => {
+  if (!Array.isArray(data) || data.length === 0) {
+    throw new Error('Data must be non-empty array');
+  }
+  
+  const sorted = [...data].sort((a, b) => a - b);
+  let maxD = 0;
+  
+  for (let i = 0; i < sorted.length; i++) {
+    const empirical = (i + 1) / sorted.length;
+    const theoretical = sorted[i];
+    maxD = Math.max(maxD, Math.abs(empirical - theoretical));
+  }
+  
+  const criticalValues = {
+    0.10: 1.224 / Math.sqrt(data.length),
+    0.05: 1.358 / Math.sqrt(data.length),
+    0.01: 1.627 / Math.sqrt(data.length)
+  };
+  
+  return {
+    statistic: maxD,
+    pass_0_10: maxD < criticalValues[0.10],
+    pass_0_05: maxD < criticalValues[0.05],
+    pass_0_01: maxD < criticalValues[0.01]
+  };
+};
+
+export const meanTest = (data, expectedMean = 0.5) => {
+  if (!Array.isArray(data) || data.length === 0) {
+    throw new Error('Data must be non-empty array');
+  }
+  
+  const mean = data.reduce((a, b) => a + b, 0) / data.length;
+  const variance = data.reduce((a, v) => a + (v - mean) ** 2, 0) / data.length;
+  const stdDev = Math.sqrt(variance);
+  const tStat = (mean - expectedMean) / (stdDev / Math.sqrt(data.length));
+  
+  return {
+    mean,
+    variance,
+    stdDev,
+    tStatistic: tStat,
+    expectedMean
+  };
+};
+
+export const varianceTest = (data, expectedVariance = 1 / 12) => {
+  if (!Array.isArray(data) || data.length === 0) {
+    throw new Error('Data must be non-empty array');
+  }
+  
+  const mean = data.reduce((a, b) => a + b, 0) / data.length;
+  const variance = data.reduce((a, v) => a + (v - mean) ** 2, 0) / data.length;
+  const chi2 = (data.length - 1) * variance / expectedVariance;
+  
+  return {
+    variance,
+    expectedVariance,
+    chi2Statistic: chi2,
+    degreesOfFreedom: data.length - 1
+  };
+};

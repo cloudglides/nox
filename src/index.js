@@ -11,7 +11,13 @@ export {
   sample,
   saveState,
   restoreState,
-  cloneGenerator
+  cloneGenerator,
+  weightedPick,
+  weightedSample,
+  reservoirSample,
+  meanTest,
+  varianceTest,
+  kolmogorovSmirnovTest
 } from './core.js';
 
 export {
@@ -23,7 +29,3 @@ export {
   Tent,
   Mixer
 } from './generators/index.js';
-
-
-
-

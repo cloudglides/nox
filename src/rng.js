@@ -73,6 +73,69 @@ export class RNG {
     }
     return arr[this.nextInt(arr.length)];
   }
+
+  batch(count, fn) {
+    if (typeof count !== 'number' || !Number.isInteger(count)) {
+      throw new TypeError('count must be an integer');
+    }
+    if (count < 0) {
+      throw new RangeError('count must be non-negative');
+    }
+    if (typeof fn !== 'function') {
+      throw new TypeError('fn must be a function');
+    }
+    
+    const result = [];
+    for (let i = 0; i < count; i++) {
+      result.push(fn(this, i));
+    }
+    return result;
+  }
+
+  floats(count) {
+    if (typeof count !== 'number' || !Number.isInteger(count)) {
+      throw new TypeError('count must be an integer');
+    }
+    if (count < 0) {
+      throw new RangeError('count must be non-negative');
+    }
+    
+    const result = new Array(count);
+    for (let i = 0; i < count; i++) {
+      result[i] = this.nextFloat();
+    }
+    return result;
+  }
+
+  ints(count, max = 2147483647) {
+    if (typeof count !== 'number' || !Number.isInteger(count)) {
+      throw new TypeError('count must be an integer');
+    }
+    if (count < 0) {
+      throw new RangeError('count must be non-negative');
+    }
+    
+    const result = new Array(count);
+    for (let i = 0; i < count; i++) {
+      result[i] = this.nextInt(max);
+    }
+    return result;
+  }
+
+  bools(count, probability = 0.5) {
+    if (typeof count !== 'number' || !Number.isInteger(count)) {
+      throw new TypeError('count must be an integer');
+    }
+    if (count < 0) {
+      throw new RangeError('count must be non-negative');
+    }
+    
+    const result = new Array(count);
+    for (let i = 0; i < count; i++) {
+      result[i] = this.bool(probability);
+    }
+    return result;
+  }
 }
 
 export const rng = () => new RNG();

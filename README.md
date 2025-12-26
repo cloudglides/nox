@@ -21,6 +21,11 @@ r.int(1, 100);      // 73
 r.bool(0.3);        // true/false (30% chance)
 r.range(10, 20, 2); // Pick from range: 10, 12, 14, 16, 18, 20
 r.choice([1, 2, 3]); // Pick one element
+
+// Batch operations
+r.floats(5);        // [0.123, 0.456, ...]
+r.ints(5, 100);     // [47, 82, 23, ...]
+r.bools(5);         // [true, false, true, ...]
 ```
 
 ## Reproducible
@@ -68,6 +73,32 @@ const snapshot = saveState(r);
 r.nextFloat();
 restoreState(r, snapshot);
 r.nextFloat(); // Same value
+```
+
+## Weighted Sampling
+
+```javascript
+import { rng, weightedPick, reservoirSample } from 'nox';
+
+const r = rng();
+const items = ['A', 'B', 'C'];
+const weights = [0.5, 0.3, 0.2];
+
+weightedPick(items, weights, r);        // Pick with probabilities
+reservoirSample(stream, k, r);          // Sample k from large stream
+```
+
+## Statistical Tests
+
+```javascript
+import { rng, meanTest, varianceTest, kolmogorovSmirnovTest } from 'nox';
+
+const r = rng();
+const data = r.floats(1000);
+
+const mean = meanTest(data);            // Test mean ≈ 0.5
+const variance = varianceTest(data);    // Test variance ≈ 1/12
+const ks = kolmogorovSmirnovTest(data); // Test uniform distribution
 ```
 
 ## Generators
