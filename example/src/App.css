@@ -1,0 +1,161 @@
+.app {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(135deg, #1e1e2e 0%, #2d2d44 100%);
+}
+
+header {
+  padding: 3rem 2rem;
+  text-align: center;
+  border-bottom: 2px solid #646cff;
+}
+
+header h1 {
+  font-size: 3rem;
+  margin-bottom: 0.5rem;
+  background: linear-gradient(45deg, #646cff, #0ea5e9);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+header p {
+  font-size: 1.1rem;
+  color: #a0a0a0;
+}
+
+.tabs {
+  display: flex;
+  gap: 1rem;
+  padding: 2rem;
+  justify-content: center;
+  flex-wrap: wrap;
+  border-bottom: 1px solid #444;
+}
+
+.tabs button {
+  padding: 0.8rem 1.6rem;
+  font-size: 1rem;
+  border: 2px solid transparent;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s;
+  color: #a0a0a0;
+  background: #2d2d44;
+}
+
+.tabs button:hover {
+  color: #646cff;
+  border-color: #646cff;
+}
+
+.tabs button.active {
+  color: #fff;
+  border-color: #646cff;
+  background: #1a1a2e;
+}
+
+.content {
+  flex: 1;
+  padding: 2rem;
+  max-width: 900px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.section {
+  background: #2d2d44;
+  padding: 2rem;
+  border-radius: 12px;
+  border: 1px solid #444;
+}
+
+.section h2 {
+  margin-bottom: 1.5rem;
+  color: #646cff;
+}
+
+.action-btn {
+  background: linear-gradient(45deg, #646cff, #0ea5e9);
+  color: white;
+  padding: 0.8rem 2rem;
+  font-size: 1rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: transform 0.2s, box-shadow 0.2s;
+  margin-bottom: 1.5rem;
+}
+
+.action-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(100, 108, 255, 0.3);
+}
+
+.action-btn:active {
+  transform: translateY(0);
+}
+
+.results {
+  background: #1a1a2e;
+  padding: 1.5rem;
+  border-radius: 8px;
+  border-left: 4px solid #646cff;
+  margin-top: 1rem;
+  font-family: 'Courier New', monospace;
+  word-break: break-all;
+}
+
+.results p {
+  margin: 0.8rem 0;
+  line-height: 1.6;
+}
+
+.results strong {
+  color: #646cff;
+  font-weight: 600;
+}
+
+footer {
+  text-align: center;
+  padding: 2rem;
+  border-top: 1px solid #444;
+  color: #a0a0a0;
+}
+
+footer a {
+  color: #646cff;
+  text-decoration: none;
+  margin: 0 0.5rem;
+}
+
+footer a:hover {
+  text-decoration: underline;
+}
+
+@media (max-width: 768px) {
+  header h1 {
+    font-size: 2rem;
+  }
+
+  .tabs {
+    gap: 0.5rem;
+    padding: 1rem;
+  }
+
+  .tabs button {
+    padding: 0.6rem 1rem;
+    font-size: 0.9rem;
+  }
+
+  .content {
+    padding: 1rem;
+  }
+
+  .section {
+    padding: 1.5rem;
+  }
+}

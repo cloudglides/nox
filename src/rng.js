@@ -61,7 +61,7 @@ export class RNG {
     if (min > max) {
       throw new Error('min must be less than or equal to max');
     }
-    
+
     const count = Math.floor((max - min) / step) + 1;
     const idx = this.nextInt(count);
     return min + idx * step;
@@ -84,7 +84,7 @@ export class RNG {
     if (typeof fn !== 'function') {
       throw new TypeError('fn must be a function');
     }
-    
+
     const result = [];
     for (let i = 0; i < count; i++) {
       result.push(fn(this, i));
@@ -99,7 +99,7 @@ export class RNG {
     if (count < 0) {
       throw new RangeError('count must be non-negative');
     }
-    
+
     const result = new Array(count);
     for (let i = 0; i < count; i++) {
       result[i] = this.nextFloat();
@@ -114,7 +114,7 @@ export class RNG {
     if (count < 0) {
       throw new RangeError('count must be non-negative');
     }
-    
+
     const result = new Array(count);
     for (let i = 0; i < count; i++) {
       result[i] = this.nextInt(max);
@@ -129,7 +129,7 @@ export class RNG {
     if (count < 0) {
       throw new RangeError('count must be non-negative');
     }
-    
+
     const result = new Array(count);
     for (let i = 0; i < count; i++) {
       result[i] = this.bool(probability);
@@ -139,3 +139,4 @@ export class RNG {
 }
 
 export const rng = () => new RNG();
+uyguyguyyuguyguyguyggyyugyugyugyugyyyguyguyguyguyguyguyguygygyuguyguygyuguyguyguyguyguyguyguyguyguyguyguyguyguyguygyugguyguyguyguyguyguygugyuyguyguyuyguuyguyguyguyguyguyguyguyguyguyguyguuyguyguyguyguyguyguyguyguyguyguygyguuyguyguyguyguyuyguygyuguyguyguyguyguyguyguygyuguyguyguyguyguyguyguygyuguygyugyuguyguyguyguyguyguyguyguyguygyuguyguyguyguyguyguyguyguyguyguyguyguyguyguyguyguyguyguyguyuygyugyyuguyguygyuguyguguyguygyuguyguyguyguyguygyuguygyuyuguyguyguygyuguguyguyguyguyguygyuguyguyguyguyguyguyguyguyguyguygugygyuyguyguyguyguyguyguyguyguyuyguyuyguyguyguyguyyuguyguygihuihiuhiuhiuhuihuihiuhiuhuhuhiuhuihiuhiuhiuhiuhiuhiuhuhhhhhhhhhhhiuhiuhiiuhuhiuiuiuhiuuiuuhuhiiuhiuhuihuihiuhiuhuhuihiuhiuhiuhiuhiuhuihiuhuihiuhiuhihuiuhiuiuhuihiuhiuhiuhuihiuhiuhiuhiuhuhiuhiuhiuhiuhuhiuhuhiuhiuhiuhiuhiuhiuhiuhiuhhuhiuhiuhiuhiuhiuhuhiuhiuhiuhiuhuihiuhiuhiuhiuhiuhuihiuhiuhihihuihuiuhiuhiuhiuhiuhiuhiuhiuhiuhiuhiuhiuhiuhiuhiuhiuhiuhhhhhhhhhhhuuhiuhiuhiuhiuhiuhiuhiuhiuhiuhiuhuhiuhiuhiuhiuiuhiuhiuhihuiuhiuhiuhiuhiuhiuhuihuihuihiuhiuhiuhiuhiuhiuhiuhiuhiuhiuhiuhiuhuhuihiuhiuhiuhiuhiuhiuhiuiuiuhihiuhiuiuhiuhiuhuhiuhiuhiuhiuhiuhiuhiuhiuhiuiuhiuhiuhiuhiuhiuhuihuhihuiuhiuhuhiuhuhiuhuihiuhiuhiuhihuhiuiuiuhiuhiuhiuhiuhiuhiuhiuhiuhiuiuhiuhihuiuhiuhiuhiuiuhiuhiuhiuhiuhiuhihuiuhiuhuihiuhiuuuuuuuuuuuuuuuuuuuuuuuuhuhuihuihiuhiuhiuhiuiuhiuhiuhiuuhiuhiuhiuhiuhuhiuhihihuiuhiuhiuhiuhiuhiuhiuhiuhiuhiuhiuhiuhiuhiuhiuhiuhiuhuhiuhiuhiuhiuhiuhiuhiuhiuhiuhihuiuhiuhihiuiuhihiuhhuuhiuhuihiuhihuhiuhiuhe344rr34443rr34wrwer4we4r44ewwewer3r343r44r43r43r4r34r3r3r4r434r4r3r4r34r34r43r43r343r434r3r34r34r34r444444444444444444443r33334r3rr434r3rr434r34rr433r4344r34343r434rr44r343rr43rr43r434r4334r43r434r4r4r4r34r44r34r4r43r4r4r3r343r443r43r3434r34r34r3r3rr43r43r43r3r4r343r43r4r3r43r34334r34r33334r43r3r443r434r4r34r3434r34r3r3r3r34r34r433r43r4rr4eeerghbhgvhgvhgvhgvhgvhghvhgvhgvhvhvhghvbhvhbbbnbnhghbvnhngvghvytfytfytfytyttyfytfytghmnjbhjbhjmjjhnytfytfytfggtgtggvgfffgfcyttyghgbvytyyyuguyghgvhgvhgvgfcgfcgfcgfcgfgfccfgfcgfcgfcgfcgfcgfcgfcgfcgfytytggytgygugyuyguygugugvhghgvhgvhgvhvhghhgvhvhgvhghgvhgvhvghvghvghgvhgvhvghgvhvhvghgvhgvhgvhgvhgvhgvhvhvghgvhvghgvhgvhvhvghvghgvhgvhgvhgvhgvhgvhgvhgvhgvhgvhhvhvhgvhgvhvghgvhgvhvhvvhgvhgvhgvhgvhgvhgvhgvhgvhgvhvhvghgvhgvgvhgvhgvhgvhgvhgvhghgvhvghvghguyuyguyguyuygygugyhhuyguyguygyguyguyguyguugyuguyguygjhbjbhbjhbjbjjbjjjjjjjjjjjjjjjjjjjjjjjjjjbhjhbhjbjhbjhbjhbjhbjhbhhhhhuyguyuyguyguygyuguyguyguyguyguyuyguyhgugggggggggggggggggguygujhhgvhgvghgvghvhghgvhgvhgvhgvhgvhhgvhgvhghvhgvvvvvvvhhgvhgvhvgvghhhgvhvgvhvghgvhgvhvhvhvhgvghvhgvhgvgvhghgvhgvhgvhgvhgvgvhghgvhgvhgvhgvhgvhgvhvghgvhgvhgvhgvhvhvghvhvhvhvhghgbgbghbghgvhgvhghgvhghvghhghgbgbhhhhhhhhhhhhhhhhhhvghhghgvhgvhgvbbbbbbbbbbbvbvbhbbhbbnbbbbbbbbbbbbbbbbhgvhgvhvhvbhgvhge
