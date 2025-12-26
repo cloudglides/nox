@@ -5,13 +5,13 @@ Simple, unpredictable random number generator.
 ## Install
 
 ```bash
-npm install nox
+npm install @cloudglides/nox
 ```
 
 ## Quick Start
 
 ```javascript
-import { rng, deterministic } from 'nox';
+import { rng, deterministic } from '@cloudglides/nox';
 
 const r = rng();
 
@@ -31,7 +31,7 @@ r.bools(5);         // [true, false, true, ...]
 ## Reproducible
 
 ```javascript
-import { deterministic } from 'nox';
+import { deterministic } from '@cloudglides/nox';
 
 const r = deterministic(42);
 // Always same sequence
@@ -40,7 +40,7 @@ const r = deterministic(42);
 ## Distributions
 
 ```javascript
-import { rng, normal, exponential, uniform, poisson } from 'nox';
+import { rng, normal, exponential, uniform, poisson } from '@cloudglides/nox';
 
 const r = rng();
 
@@ -53,7 +53,7 @@ poisson(r, lambda=5);
 ## Sampling
 
 ```javascript
-import { rng, shuffle, pick, sample } from 'nox';
+import { rng, shuffle, pick, sample } from '@cloudglides/nox';
 
 const r = rng();
 
@@ -65,7 +65,7 @@ sample([1, 2, 3, 4, 5], 3, r);
 ## State
 
 ```javascript
-import { rng, saveState, restoreState } from 'nox';
+import { rng, saveState, restoreState } from '@cloudglides/nox';
 
 const r = rng();
 const snapshot = saveState(r);
@@ -78,7 +78,7 @@ r.nextFloat(); // Same value
 ## Weighted Sampling
 
 ```javascript
-import { rng, weightedPick, reservoirSample } from 'nox';
+import { rng, weightedPick, reservoirSample } from '@cloudglides/nox';
 
 const r = rng();
 const items = ['A', 'B', 'C'];
@@ -91,7 +91,7 @@ reservoirSample(stream, k, r);          // Sample k from large stream
 ## Statistical Tests
 
 ```javascript
-import { rng, meanTest, varianceTest, kolmogorovSmirnovTest } from 'nox';
+import { rng, meanTest, varianceTest, kolmogorovSmirnovTest } from '@cloudglides/nox';
 
 const r = rng();
 const data = r.floats(1000);
@@ -106,7 +106,7 @@ const ks = kolmogorovSmirnovTest(data); // Test uniform distribution
 For reproducible results or specific generator properties:
 
 ```javascript
-import { RNG, PCG64, MT19937, Xorshift64, Splitmix64 } from 'nox';
+import { RNG, PCG64, MT19937, Xorshift64, Splitmix64 } from '@cloudglides/nox';
 
 const r = new RNG(PCG64, seed);      // PCG64 (default, fast, high quality)
 const r = new RNG(MT19937, seed);    // MT19937 (Mersenne Twister)

@@ -84,7 +84,10 @@ export class RNG {
      if (typeof count !== 'number' || !Number.isInteger(count)) {
        throw new TypeError('count must be an integer');
      }
-     if (count <= 0) {
+     if (count < 0) {
+       throw new RangeError('count must be non-negative');
+     }
+     if (count === 0) {
        return [];
      }
      if (typeof fn !== 'function') {
@@ -102,7 +105,10 @@ export class RNG {
      if (typeof count !== 'number' || !Number.isInteger(count)) {
        throw new TypeError('count must be an integer');
      }
-     if (count <= 0) {
+     if (count < 0) {
+       throw new RangeError('count must be non-negative');
+     }
+     if (count === 0) {
        return [];
      }
 
@@ -117,7 +123,10 @@ export class RNG {
      if (typeof count !== 'number' || !Number.isInteger(count)) {
        throw new TypeError('count must be an integer');
      }
-     if (count <= 0) {
+     if (count < 0) {
+       throw new RangeError('count must be non-negative');
+     }
+     if (count === 0) {
        return [];
      }
 
@@ -132,7 +141,10 @@ export class RNG {
      if (typeof count !== 'number' || !Number.isInteger(count)) {
        throw new TypeError('count must be an integer');
      }
-     if (count <= 0) {
+     if (count < 0) {
+       throw new RangeError('count must be non-negative');
+     }
+     if (count === 0) {
        return [];
      }
 
