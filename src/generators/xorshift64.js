@@ -17,8 +17,18 @@ export class Xorshift64 {
   }
 
   nextInt(max = 2147483647) {
-    const next = Number(this.next() >> 1n);
-    return next % max;
+    if (max <= 0) {
+      throw new Error('max must be positive');
+    }
+    
+    let val = this.next() & 0x7fffffffffffffffn;
+    const limit = (0xffffffffffffffffn / BigInt(max)) * BigInt(max);
+    
+    while (val >= limit) {
+      val = this.next() & 0x7fffffffffffffffn;
+    }
+    
+    return Number(val % BigInt(max));
   }
 
   nextFloat() {

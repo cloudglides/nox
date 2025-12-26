@@ -1,23 +1,34 @@
+export interface IGenerator {
+  next(): number | bigint;
+  nextInt(max?: number): number;
+  nextFloat(): number;
+}
+
+export type GeneratorConstructor = new (seed?: number | bigint) => IGenerator;
+
 export class RNG {
-  constructor(generator?: any, seed?: number | bigint);
+  gen: IGenerator;
+  constructor(generator?: GeneratorConstructor | IGenerator, seed?: number | bigint);
   next(): any;
   nextInt(max?: number): number;
   nextFloat(): number;
   int(min: number, max: number): number;
   bool(probability?: number): boolean;
+  range(min: number, max: number, step?: number): number;
+  choice<T>(arr: T[]): T;
 }
 
 export function rng(): RNG;
 export function deterministic(seed: number | bigint): RNG;
 
-export function normal(rng: RNG, mean?: number, stddev?: number): number;
-export function exponential(rng: RNG, lambda?: number): number;
-export function uniform(rng: RNG, min: number, max: number): number;
-export function poisson(rng: RNG, lambda: number): number;
+export function normal(rng: RNG | IGenerator, mean?: number, stddev?: number): number;
+export function exponential(rng: RNG | IGenerator, lambda?: number): number;
+export function uniform(rng: RNG | IGenerator, min: number, max: number): number;
+export function poisson(rng: RNG | IGenerator, lambda: number): number;
 
-export function shuffle(arr: any[], rng: RNG): any[];
-export function pick(arr: any[], rng: RNG): any;
-export function sample(arr: any[], count: number, rng: RNG): any[];
+export function shuffle<T>(arr: T[], rng: RNG | IGenerator, inPlace?: boolean): T[];
+export function pick<T>(arr: T[], rng: RNG | IGenerator): T;
+export function sample<T>(arr: T[], count: number, rng: RNG | IGenerator): T[];
 
 export function saveState(rng: RNG): any;
 export function restoreState(rng: RNG, snapshot: any): void;

@@ -1,4 +1,14 @@
 export const normal = (rng, mean = 0, stddev = 1) => {
+  if (!rng || typeof rng.nextFloat !== 'function') {
+    throw new TypeError('First argument must be RNG instance');
+  }
+  if (typeof mean !== 'number' || typeof stddev !== 'number') {
+    throw new TypeError('mean and stddev must be numbers');
+  }
+  if (stddev <= 0) {
+    throw new Error('stddev must be positive');
+  }
+  
   let u1, u2;
   do {
     u1 = rng.nextFloat();
@@ -10,7 +20,12 @@ export const normal = (rng, mean = 0, stddev = 1) => {
 };
 
 export const exponential = (rng, lambda = 1) => {
-  if (lambda <= 0) throw new Error('Lambda must be positive');
+  if (!rng || typeof rng.nextFloat !== 'function') {
+    throw new TypeError('First argument must be RNG instance');
+  }
+  if (typeof lambda !== 'number' || lambda <= 0) {
+    throw new Error('lambda must be a positive number');
+  }
   
   let u = rng.nextFloat();
   while (u === 0 || u === 1) {
@@ -20,6 +35,13 @@ export const exponential = (rng, lambda = 1) => {
 };
 
 export const poisson = (rng, lambda) => {
+  if (!rng || typeof rng.nextFloat !== 'function') {
+    throw new TypeError('First argument must be RNG instance');
+  }
+  if (typeof lambda !== 'number' || lambda <= 0) {
+    throw new Error('lambda must be a positive number');
+  }
+  
   const L = Math.exp(-lambda);
   let k = 0;
   let p = 1;
@@ -33,5 +55,15 @@ export const poisson = (rng, lambda) => {
 };
 
 export const uniform = (rng, min, max) => {
+  if (!rng || typeof rng.nextFloat !== 'function') {
+    throw new TypeError('First argument must be RNG instance');
+  }
+  if (typeof min !== 'number' || typeof max !== 'number') {
+    throw new TypeError('min and max must be numbers');
+  }
+  if (min >= max) {
+    throw new Error('min must be less than max');
+  }
+  
   return min + rng.nextFloat() * (max - min);
 };

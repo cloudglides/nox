@@ -8,17 +8,19 @@ Simple, unpredictable random number generator.
 npm install nox
 ```
 
-## Usage
+## Quick Start
 
 ```javascript
 import { rng, deterministic } from 'nox';
 
 const r = rng();
 
-r.nextFloat();    // 0.742...
-r.nextInt(100);   // 47
-r.int(1, 100);    // 73
-r.bool(0.3);      // true/false (30% chance)
+r.nextFloat();      // 0.742...
+r.nextInt(100);     // 47
+r.int(1, 100);      // 73
+r.bool(0.3);        // true/false (30% chance)
+r.range(10, 20, 2); // Pick from range: 10, 12, 14, 16, 18, 20
+r.choice([1, 2, 3]); // Pick one element
 ```
 
 ## Reproducible
@@ -70,14 +72,15 @@ r.nextFloat(); // Same value
 
 ## Generators
 
-Use specific generators if needed:
+For reproducible results or specific generator properties:
 
 ```javascript
-import { PCG64, MT19937, Xorshift64 } from 'nox';
+import { RNG, PCG64, MT19937, Xorshift64, Splitmix64 } from 'nox';
 
-const r = new PCG64(seed);
-const r = new MT19937(seed);
-const r = new Xorshift64(seed);
+const r = new RNG(PCG64, seed);      // PCG64 (default, fast, high quality)
+const r = new RNG(MT19937, seed);    // MT19937 (Mersenne Twister)
+const r = new RNG(Xorshift64, seed); // Xorshift64 (simple, fast)
+const r = new RNG(Splitmix64, seed); // Splitmix64 (statistical mixing)
 ```
 
 ## License

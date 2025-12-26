@@ -1,41 +1,39 @@
 export const saveState = (rng) => {
-  if (rng.state === undefined) {
+  const gen = rng.gen || rng;
+  if (gen.state === undefined) {
     throw new Error('Generator does not support state snapshots');
   }
-  return { state: rng.state };
+  return { state: gen.state };
 };
 
 export const restoreState = (rng, snapshot) => {
-  if (rng.state === undefined) {
+  const gen = rng.gen || rng;
+  if (gen.state === undefined) {
     throw new Error('Generator does not support state snapshots');
   }
-  rng.state = snapshot.state;
+  gen.state = snapshot.state;
 };
 
 export const cloneGenerator = (rng) => {
-  const Constructor = rng.constructor;
+  const isRNGWrapper = rng.gen !== undefined;
+  const gen = isRNGWrapper ? rng.gen : rng;
+  const Constructor = gen.constructor;
   
-  if (rng.constructor.name === 'PCG64') {
-    const clone = new Constructor(rng.state, rng.inc);
-    return clone;
+  let clonedGen;
+  
+  if (Constructor.name === 'PCG64') {
+    clonedGen = new Constructor(gen.state, gen.inc);
+  } else if (Constructor.name === 'Logistic') {
+    clonedGen = new Constructor(gen.x, gen.r);
+  } else if (Constructor.name === 'Tent') {
+    clonedGen = new Constructor(gen.x, gen.mu);
+  } else if (Constructor.name === 'Mixer') {
+    const rng1Clone = cloneGenerator(gen.rng1);
+    const rng2Clone = cloneGenerator(gen.rng2);
+    clonedGen = new Constructor(rng1Clone, rng2Clone);
+  } else {
+    clonedGen = new Constructor(gen.state);
   }
   
-  if (rng.constructor.name === 'Logistic') {
-    const clone = new Constructor(rng.x, rng.r);
-    return clone;
-  }
-  
-  if (rng.constructor.name === 'Tent') {
-    const clone = new Constructor(rng.x, rng.mu);
-    return clone;
-  }
-  
-  if (rng.constructor.name === 'Mixer') {
-    const rng1Clone = cloneGenerator(rng.rng1);
-    const rng2Clone = cloneGenerator(rng.rng2);
-    return new Constructor(rng1Clone, rng2Clone);
-  }
-  
-  const clone = new Constructor(rng.state);
-  return clone;
+  return isRNGWrapper ? new (rng.constructor)(Constructor, gen.state) : clonedGen;
 };

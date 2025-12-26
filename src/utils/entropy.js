@@ -2,27 +2,29 @@ import { performance } from 'perf_hooks';
 import { randomBytes } from 'crypto';
 
 export const fromPerformance = () => {
-  return BigInt(Math.floor(performance.now() * 1000));
+  const t = performance.now();
+  return BigInt(Math.floor(t * 1000)) ^ BigInt(Math.floor(t * 1000000) % 1000000);
 };
 
 export const fromMemory = () => {
   if (typeof process !== 'undefined' && process.memoryUsage) {
     const mem = process.memoryUsage();
-    return BigInt(Math.floor(mem.heapUsed + mem.external));
+    const total = mem.heapUsed + mem.external + mem.heapTotal;
+    return BigInt(Math.floor(total)) ^ BigInt(Date.now());
   }
-  return BigInt(0);
+  return BigInt(Date.now());
 };
 
 export const fromCrypto = (bytes = 8) => {
   try {
-    const buf = randomBytes(bytes);
+    const buf = randomBytes(Math.max(bytes, 8));
     let val = 0n;
     for (let i = 0; i < buf.length; i++) {
       val = (val << 8n) | BigInt(buf[i]);
     }
     return val;
   } catch {
-    return BigInt(0);
+    return BigInt(Math.random() * Number.MAX_SAFE_INTEGER);
   }
 };
 
@@ -31,6 +33,9 @@ export const combined = () => {
   const mem = fromMemory();
   const crypto = fromCrypto();
   
-  const mix = (perf ^ mem ^ crypto) ^ (perf + BigInt(Date.now()));
+  let mix = perf ^ mem ^ crypto;
+  mix = mix ^ (mix >> 33n);
+  mix = (mix * 0xff51afd7ed558ccdn) & ((1n << 64n) - 1n);
+  
   return mix !== 0n ? mix : 1n;
 };
