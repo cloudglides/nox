@@ -27,7 +27,12 @@ export class Tent {
      if (!Number.isInteger(max)) {
        throw new TypeError('max must be an integer');
      }
-     return Math.floor(this.next() * max);
+     const limit = Math.floor(1 / max) * max;
+     let val;
+     do {
+       val = Math.floor(this.next() * Number.MAX_SAFE_INTEGER);
+     } while (val >= limit);
+     return val % max;
    }
  
    nextFloat() {

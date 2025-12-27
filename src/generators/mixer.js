@@ -39,6 +39,6 @@ export class Mixer {
    nextFloat() {
      const f1 = this.rng1.nextFloat();
      const f2 = this.rng2.nextFloat();
-     return Math.abs(f1 - f2);
+     return Math.abs(f1 - f2) % 1.0;
    }
  }

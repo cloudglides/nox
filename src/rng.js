@@ -50,18 +50,18 @@ export class RNG {
   }
 
   range(min, max, step = 1) {
-    if (typeof min !== 'number' || typeof max !== 'number' || typeof step !== 'number') {
-      throw new TypeError('min, max, and step must be numbers');
-    }
-    if (!Number.isInteger(min) || !Number.isInteger(max) || !Number.isInteger(step)) {
-      throw new Error('min, max, and step must be integers');
-    }
-    if (step <= 0) {
-      throw new Error('step must be positive');
-    }
-    if (min > max) {
-      throw new Error('min must be less than or equal to max');
-    }
+     if (typeof min !== 'number' || typeof max !== 'number' || typeof step !== 'number') {
+       throw new TypeError('min, max, and step must be numbers');
+     }
+     if (!Number.isInteger(min) || !Number.isInteger(max) || !Number.isInteger(step)) {
+       throw new TypeError('min, max, and step must be integers');
+     }
+     if (step <= 0) {
+       throw new RangeError('step must be positive');
+     }
+     if (min > max) {
+       throw new RangeError('min must be less than or equal to max');
+     }
 
     const count = Math.floor((max - min) / step) + 1;
     const idx = this.nextInt(count);

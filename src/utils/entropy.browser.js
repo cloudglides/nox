@@ -1,5 +1,6 @@
 let cryptoCache = null;
 let cryptoCacheTime = 0;
+let cryptoCacheBytes = 0;
 
 export const fromPerformance = () => {
   try {
@@ -18,12 +19,12 @@ export const fromMemory = () => {
 };
 
 export const fromCrypto = (bytes = 8) => {
-  try {
-    const now = Date.now();
-    
-    if (cryptoCache && (now - cryptoCacheTime) < 100) {
-      return cryptoCache;
-    }
+   try {
+     const now = Date.now();
+     
+     if (cryptoCache && (now - cryptoCacheTime) < 100 && cryptoCacheBytes === bytes) {
+       return cryptoCache;
+     }
     
     let val = 0n;
     
@@ -39,25 +40,27 @@ export const fromCrypto = (bytes = 8) => {
     
     cryptoCache = val;
     cryptoCacheTime = now;
+    cryptoCacheBytes = bytes;
     return val;
-  } catch {
+    } catch {
     return BigInt(Math.random() * Number.MAX_SAFE_INTEGER);
-  }
-};
-
-export const combined = () => {
-  const perf = fromPerformance();
-  const mem = fromMemory();
-  const crypto = fromCrypto();
-  
-  let mix = perf ^ mem ^ crypto;
-  mix = mix ^ (mix >> 33n);
-  mix = (mix * 0xff51afd7ed558ccdn) & ((1n << 64n) - 1n);
-  
-  return mix !== 0n ? mix : 1n;
-};
-
-export const clearCryptoCache = () => {
-  cryptoCache = null;
-  cryptoCacheTime = 0;
-};
+    }
+    };
+    
+    export const combined = () => {
+    const perf = fromPerformance();
+    const mem = fromMemory();
+    const crypto = fromCrypto();
+    
+    let mix = perf ^ mem ^ crypto;
+    mix = mix ^ (mix >> 33n);
+    mix = (mix * 0xff51afd7ed558ccdn) & ((1n << 64n) - 1n);
+    
+    return mix !== 0n ? mix : 1n;
+    };
+    
+    export const clearCryptoCache = () => {
+    cryptoCache = null;
+    cryptoCacheTime = 0;
+    cryptoCacheBytes = 0;
+    };

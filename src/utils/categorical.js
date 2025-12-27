@@ -38,20 +38,22 @@ export const multinomial = (rng, n, categories, probabilities) => {
 };
 
 export const categorical2D = (rng, matrix) => {
-  const rows = matrix.length;
-  const cols = matrix[0].length;
+   const rows = matrix.length;
+   const cols = matrix[0].length;
 
-  const total = matrix.flat().reduce((a, b) => a + b, 0);
-  let rand = rng.nextFloat() * total;
+   const flat = matrix.flat();
+   const total = flat.reduce((a, b) => a + b, 0);
+   if (total <= 0) throw new Error('Matrix values must sum to positive');
+   
+   let cumsum = 0;
+   const rand = rng.nextFloat() * total;
 
-  for (let i = 0; i < rows; i++) {
-    for (let j = 0; j < cols; j++) {
-      rand -= matrix[i][j];
-      if (rand <= 0) {
-        return [i, j];
-      }
-    }
-  }
+   for (let idx = 0; idx < flat.length; idx++) {
+     cumsum += flat[idx];
+     if (rand < cumsum) {
+       return [Math.floor(idx / cols), idx % cols];
+     }
+   }
 
-  return [rows - 1, cols - 1];
-};
+   return [rows - 1, cols - 1];
+ };

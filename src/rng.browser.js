@@ -36,8 +36,7 @@ export class RNG {
      }
      if (min > max) [min, max] = [max, min];
      const range = max - min + 1;
-     let val = Math.floor(this.nextFloat() * range);
-     return val + min;
+     return min + this.nextInt(range);
    }
 
   bool(probability = 0.5) {
@@ -55,13 +54,13 @@ export class RNG {
       throw new TypeError('min, max, and step must be numbers');
     }
     if (!Number.isInteger(min) || !Number.isInteger(max) || !Number.isInteger(step)) {
-      throw new Error('min, max, and step must be integers');
+      throw new TypeError('min, max, and step must be integers');
     }
     if (step <= 0) {
-      throw new Error('step must be positive');
+      throw new RangeError('step must be positive');
     }
     if (min > max) {
-      throw new Error('min must be less than or equal to max');
+      throw new RangeError('min must be less than or equal to max');
     }
 
     const count = Math.floor((max - min) / step) + 1;
