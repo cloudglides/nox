@@ -8,7 +8,10 @@ export const weibull = (rng, shape, scale = 1) => {
    if (typeof scale !== 'number' || scale <= 0) {
      throw new Error('scale must be a positive number');
    }
-   const u = rng.nextFloat();
+   let u = rng.nextFloat();
+   while (u === 0 || u === 1) {
+     u = rng.nextFloat();
+   }
    return scale * Math.pow(-Math.log(1 - u), 1 / shape);
  };
  
@@ -22,7 +25,10 @@ export const weibull = (rng, shape, scale = 1) => {
    if (typeof sigma !== 'number' || sigma <= 0) {
      throw new Error('sigma must be a positive number');
    }
-   const u1 = rng.nextFloat();
+   let u1 = rng.nextFloat();
+   while (u1 === 0 || u1 === 1) {
+     u1 = rng.nextFloat();
+   }
    const u2 = rng.nextFloat();
    const z = Math.sqrt(-2 * Math.log(u1)) * Math.cos(2 * Math.PI * u2);
    return Math.exp(mu + sigma * z);
@@ -35,7 +41,10 @@ export const weibull = (rng, shape, scale = 1) => {
    if (typeof sigma !== 'number' || sigma <= 0) {
      throw new Error('sigma must be a positive number');
    }
-   const u = rng.nextFloat();
+   let u = rng.nextFloat();
+   while (u === 0 || u === 1) {
+     u = rng.nextFloat();
+   }
    return sigma * Math.sqrt(-2 * Math.log(u));
  };
  

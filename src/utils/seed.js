@@ -1,6 +1,8 @@
 export const seedFromTime = () => {
-  return BigInt(Date.now() + Math.random() * 1000000);
-};
+   const time = BigInt(Date.now());
+   const rand = BigInt(Math.floor(Math.random() * 1000000));
+   return (time << 20n) | rand;
+ };
 
 export const seedFromEntropy = (entropy) => {
   if (typeof entropy !== 'string') throw new TypeError('Entropy must be string');

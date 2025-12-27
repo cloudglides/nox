@@ -22,16 +22,22 @@ export class SeedSequence {
   }
 
   spawn(n = 1) {
-    const seeds = [];
-    for (let i = 0; i < n; i++) {
-      seeds.push(this.next());
-    }
-    return seeds;
+     if (typeof n !== 'number' || !Number.isInteger(n) || n <= 0) {
+       throw new Error('n must be positive integer');
+     }
+     const seeds = [];
+     for (let i = 0; i < n; i++) {
+       seeds.push(this.next());
+     }
+     return seeds;
+   }
   }
-}
-
-export const seedMultiple = (rngClasses, entropy = null) => {
-  const seq = new SeedSequence(entropy);
-  const seeds = seq.spawn(rngClasses.length);
-  return rngClasses.map((RngClass, i) => new RngClass(seeds[i]));
-};
+  
+  export const seedMultiple = (rngClasses, entropy = null) => {
+   if (!Array.isArray(rngClasses) || rngClasses.length === 0) {
+     throw new TypeError('rngClasses must be non-empty array');
+   }
+   const seq = new SeedSequence(entropy);
+   const seeds = seq.spawn(rngClasses.length);
+   return rngClasses.map((RngClass, i) => new RngClass(seeds[i]));
+  };

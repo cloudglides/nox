@@ -22,19 +22,20 @@ export const normal = (rng, mean = 0, stddev = 1) => {
  };
 
 export const exponential = (rng, lambda = 1) => {
-  if (!rng || typeof rng.nextFloat !== 'function') {
-    throw new TypeError('First argument must be RNG instance');
-  }
-  if (typeof lambda !== 'number' || lambda <= 0) {
-    throw new Error('lambda must be a positive number');
-  }
-  
-  let u = rng.nextFloat();
-  while (u === 0 || u === 1) {
-    u = rng.nextFloat();
-  }
-  return -Math.log(1 - u) / lambda;
-};
+   if (!rng || typeof rng.nextFloat !== 'function') {
+     throw new TypeError('First argument must be RNG instance');
+   }
+   if (typeof lambda !== 'number' || lambda <= 0) {
+     throw new Error('lambda must be a positive number');
+   }
+   
+   let u = rng.nextFloat();
+   while (u === 0 || u === 1) {
+     u = rng.nextFloat();
+   }
+   const result = -Math.log(1 - u) / lambda;
+   return Number.isFinite(result) ? result : -Math.log(u) / lambda;
+ };
 
 export const poisson = (rng, lambda) => {
   if (!rng || typeof rng.nextFloat !== 'function') {
