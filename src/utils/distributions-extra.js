@@ -1,13 +1,31 @@
 export const beta = (rng, alpha, beta) => {
-  const u = -Math.log(rng.nextFloat()) / alpha;
-  const v = -Math.log(rng.nextFloat()) / beta;
-  return u / (u + v);
-};
+   if (!rng || typeof rng.nextFloat !== 'function') {
+     throw new TypeError('First argument must be RNG instance');
+   }
+   if (typeof alpha !== 'number' || alpha <= 0) {
+     throw new Error('alpha must be a positive number');
+   }
+   if (typeof beta !== 'number' || beta <= 0) {
+     throw new Error('beta must be a positive number');
+   }
+   const u = -Math.log(rng.nextFloat()) / alpha;
+   const v = -Math.log(rng.nextFloat()) / beta;
+   return u / (u + v);
+ };
 
 export const gamma = (rng, shape, scale = 1) => {
-  if (shape < 1) {
-    return gamma(rng, shape + 1, scale) * Math.pow(rng.nextFloat(), 1 / shape);
-  }
+   if (!rng || typeof rng.nextFloat !== 'function') {
+     throw new TypeError('First argument must be RNG instance');
+   }
+   if (typeof shape !== 'number' || shape <= 0) {
+     throw new Error('shape must be a positive number');
+   }
+   if (typeof scale !== 'number' || scale <= 0) {
+     throw new Error('scale must be a positive number');
+   }
+   if (shape < 1) {
+     return gamma(rng, shape + 1, scale) * Math.pow(rng.nextFloat(), 1 / shape);
+   }
   
   const d = shape - 1 / 3;
   const c = 1 / Math.sqrt(9 * d);
@@ -28,5 +46,8 @@ export const gamma = (rng, shape, scale = 1) => {
 };
 
 export const chi2 = (rng, k) => {
-  return gamma(rng, k / 2, 2);
-};
+   if (typeof k !== 'number' || k <= 0) {
+     throw new Error('k must be a positive number');
+   }
+   return gamma(rng, k / 2, 2);
+ };

@@ -62,24 +62,39 @@ export const kPermutations = (arr, k) => {
 };
 
 export const randomCombination = (arr, k, rng) => {
-  const indices = [];
-  const n = arr.length;
-  
-  while (indices.length < k) {
-    const idx = rng.nextInt(n);
-    if (!indices.includes(idx)) {
-      indices.push(idx);
-    }
-  }
-  
-  return indices.sort((a, b) => a - b).map(i => arr[i]);
-};
+   if (!Array.isArray(arr)) {
+     throw new TypeError('arr must be array');
+   }
+   if (typeof k !== 'number' || !Number.isInteger(k) || k <= 0) {
+     throw new Error('k must be a positive integer');
+   }
+   if (k > arr.length) {
+     throw new Error('k cannot exceed array length');
+   }
+   if (!rng || typeof rng.nextInt !== 'function') {
+     throw new TypeError('rng must be RNG instance');
+   }
+   const indices = new Set();
+   const n = arr.length;
+   
+   while (indices.size < k) {
+     indices.add(rng.nextInt(n));
+   }
+   
+   return Array.from(indices).sort((a, b) => a - b).map(i => arr[i]);
+ };
 
 export const randomPermutation = (arr, rng) => {
-  const copy = [...arr];
-  for (let i = copy.length - 1; i > 0; i--) {
-    const j = rng.nextInt(i + 1);
-    [copy[i], copy[j]] = [copy[j], copy[i]];
-  }
-  return copy;
-};
+   if (!Array.isArray(arr)) {
+     throw new TypeError('arr must be array');
+   }
+   if (!rng || typeof rng.nextInt !== 'function') {
+     throw new TypeError('rng must be RNG instance');
+   }
+   const copy = [...arr];
+   for (let i = copy.length - 1; i > 0; i--) {
+     const j = rng.nextInt(i + 1);
+     [copy[i], copy[j]] = [copy[j], copy[i]];
+   }
+   return copy;
+ };

@@ -23,12 +23,18 @@ const grad = (hash, x, y) => {
 };
 
 export const perlin2D = (rng, x, y, octaves = 1) => {
-  let value = 0;
-  let amplitude = 1;
-  let frequency = 1;
-  let maxValue = 0;
+   if (typeof x !== 'number' || typeof y !== 'number') {
+     throw new TypeError('x and y must be numbers');
+   }
+   if (typeof octaves !== 'number' || !Number.isInteger(octaves) || octaves <= 0) {
+     throw new Error('octaves must be a positive integer');
+   }
+   let value = 0;
+   let amplitude = 1;
+   let frequency = 1;
+   let maxValue = 0;
 
-  for (let i = 0; i < octaves; i++) {
+   for (let i = 0; i < octaves; i++) {
     const xi = Math.floor((x * frequency) % 256);
     const yi = Math.floor((y * frequency) % 256);
 
@@ -60,8 +66,14 @@ export const perlin2D = (rng, x, y, octaves = 1) => {
 };
 
 export const valueNoise = (rng, x, y, scale = 1) => {
-  const sx = Math.floor(x * scale);
-  const sy = Math.floor(y * scale);
+   if (typeof x !== 'number' || typeof y !== 'number') {
+     throw new TypeError('x and y must be numbers');
+   }
+   if (typeof scale !== 'number' || scale <= 0) {
+     throw new Error('scale must be a positive number');
+   }
+   const sx = Math.floor(x * scale);
+   const sy = Math.floor(y * scale);
 
   const n00 = Math.sin(sx * 12.9898 + sy * 78.233) * 43758.5453;
   const n10 = Math.sin((sx + 1) * 12.9898 + sy * 78.233) * 43758.5453;

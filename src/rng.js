@@ -28,16 +28,16 @@ export class RNG {
   }
 
   int(min, max) {
-     if (typeof min !== 'number' || typeof max !== 'number') {
-       throw new TypeError('int() requires two number arguments');
-     }
-     if (!Number.isInteger(min) || !Number.isInteger(max)) {
-       throw new TypeError('int() arguments must be integers');
-     }
-     if (min > max) [min, max] = [max, min];
-     const range = max - min + 1;
-     return min + this.nextInt(range);
-   }
+    if (typeof min !== 'number' || typeof max !== 'number') {
+      throw new TypeError('int() requires two number arguments');
+    }
+    if (!Number.isInteger(min) || !Number.isInteger(max)) {
+      throw new TypeError('int() arguments must be integers');
+    }
+    if (min > max) [min, max] = [max, min];
+    const range = max - min + 1;
+    return min + this.nextInt(range);
+  }
 
   bool(probability = 0.5) {
     if (typeof probability !== 'number') {
@@ -50,18 +50,18 @@ export class RNG {
   }
 
   range(min, max, step = 1) {
-     if (typeof min !== 'number' || typeof max !== 'number' || typeof step !== 'number') {
-       throw new TypeError('min, max, and step must be numbers');
-     }
-     if (!Number.isInteger(min) || !Number.isInteger(max) || !Number.isInteger(step)) {
-       throw new TypeError('min, max, and step must be integers');
-     }
-     if (step <= 0) {
-       throw new RangeError('step must be positive');
-     }
-     if (min > max) {
-       throw new RangeError('min must be less than or equal to max');
-     }
+    if (typeof min !== 'number' || typeof max !== 'number' || typeof step !== 'number') {
+      throw new TypeError('min, max, and step must be numbers');
+    }
+    if (!Number.isInteger(min) || !Number.isInteger(max) || !Number.isInteger(step)) {
+      throw new TypeError('min, max, and step must be integers');
+    }
+    if (step <= 0) {
+      throw new RangeError('step must be positive');
+    }
+    if (min > max) {
+      throw new RangeError('min must be less than or equal to max');
+    }
 
     const count = Math.floor((max - min) / step) + 1;
     const idx = this.nextInt(count);
@@ -69,91 +69,93 @@ export class RNG {
   }
 
   choice(arr) {
-     if (!Array.isArray(arr)) {
-       throw new TypeError('choice() requires array');
-     }
-     const len = arr.length;
-     if (len === 0) {
-       throw new TypeError('choice() requires non-empty array');
-     }
-     return arr[this.nextInt(len)];
-   }
+    if (!Array.isArray(arr)) {
+      throw new TypeError('choice() requires array');
+    }
+    const len = arr.length;
+    if (len === 0) {
+      throw new TypeError('choice() requires non-empty array');
+    }
+    return arr[this.nextInt(len)];
+  }
 
   batch(count, fn) {
-     if (typeof count !== 'number' || !Number.isInteger(count)) {
-       throw new TypeError('count must be an integer');
-     }
-     if (count < 0) {
-       throw new RangeError('count must be non-negative');
-     }
-     if (count === 0) {
-       return [];
-     }
-     if (typeof fn !== 'function') {
-       throw new TypeError('fn must be a function');
-     }
+    if (typeof count !== 'number' || !Number.isInteger(count)) {
+      throw new TypeError('count must be an integer');
+    }
+    if (count < 0) {
+      throw new RangeError('count must be non-negative');
+    }
+    if (count === 0) {
+      return [];
+    }
+    if (typeof fn !== 'function') {
+      throw new TypeError('fn must be a function');
+    }
 
-     const result = new Array(count);
-     for (let i = 0; i < count; i++) {
-       result[i] = fn(this, i);
-     }
-     return result;
-   }
+    const result = new Array(count);
+    for (let i = 0; i < count; i++) {
+      result[i] = fn(this, i);
+    }
+    return result;
+  }
 
   floats(count) {
-     if (typeof count !== 'number' || !Number.isInteger(count)) {
-       throw new TypeError('count must be an integer');
-     }
-     if (count < 0) {
-       throw new RangeError('count must be non-negative');
-     }
-     if (count === 0) {
-       return [];
-     }
+    if (typeof count !== 'number' || !Number.isInteger(count)) {
+      throw new TypeError('count must be an integer');
+    }
+    if (count < 0) {
+      throw new RangeError('count must be non-negative');
+    }
+    if (count === 0) {
+      return [];
+    }
 
-     const result = new Array(count);
-     for (let i = 0; i < count; i++) {
-       result[i] = this.nextFloat();
-     }
-     return result;
-   }
+    const result = new Array(count);
+    for (let i = 0; i < count; i++) {
+      result[i] = this.nextFloat();
+    }
+    return result;
+  }
 
-   ints(count, max = 2147483647) {
-     if (typeof count !== 'number' || !Number.isInteger(count)) {
-       throw new TypeError('count must be an integer');
-     }
-     if (count < 0) {
-       throw new RangeError('count must be non-negative');
-     }
-     if (count === 0) {
-       return [];
-     }
+  ints(count, max = 2147483647) {
+    if (typeof count !== 'number' || !Number.isInteger(count)) {
+      throw new TypeError('count must be an integer');
+    }
+    if (count < 0) {
+      throw new RangeError('count must be non-negative');
+    }
+    if (count === 0) {
+      return [];
+    }
 
-     const result = new Array(count);
-     for (let i = 0; i < count; i++) {
-       result[i] = this.nextInt(max);
-     }
-     return result;
-   }
+    const result = new Array(count);
+    for (let i = 0; i < count; i++) {
+      result[i] = this.nextInt(max);
+    }
+    return result;
+  }
 
-   bools(count, probability = 0.5) {
-     if (typeof count !== 'number' || !Number.isInteger(count)) {
-       throw new TypeError('count must be an integer');
-     }
-     if (count < 0) {
-       throw new RangeError('count must be non-negative');
-     }
-     if (count === 0) {
-       return [];
-     }
+  bools(count, probability = 0.5) {
+    if (typeof count !== 'number' || !Number.isInteger(count)) {
+      throw new TypeError('count must be an integer');
+    }
+    if (count < 0) {
+      throw new RangeError('count must be non-negative');
+    }
+    if (count === 0) {
+      return [];
+    }
 
-     const result = new Array(count);
-     for (let i = 0; i < count; i++) {
-       result[i] = this.bool(probability);
-     }
-     return result;
-   }
+    const result = new Array(count);
+    for (let i = 0; i < count; i++) {
+      result[i] = this.bool(probability);
+    }
+    return result;
+  }
 }
 
 export const rng = () => new RNG();
+
+
 
