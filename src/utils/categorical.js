@@ -1,12 +1,15 @@
 export const categorical = (rng, categories, probabilities) => {
-  if (!categories || !probabilities) throw new Error('Categories and probabilities required');
-  if (categories.length === 0) throw new Error('Categories cannot be empty');
-  if (probabilities.length !== categories.length) {
-    throw new Error('Probabilities and categories must have same length');
-  }
+   if (!rng || typeof rng.nextFloat !== 'function') {
+     throw new TypeError('First argument must be RNG instance');
+   }
+   if (!categories || !probabilities) throw new Error('Categories and probabilities required');
+   if (categories.length === 0) throw new Error('Categories cannot be empty');
+   if (probabilities.length !== categories.length) {
+     throw new Error('Probabilities and categories must have same length');
+   }
 
-  const total = probabilities.reduce((a, b) => a + b, 0);
-  if (total <= 0) throw new Error('Probabilities must sum to positive value');
+   const total = probabilities.reduce((a, b) => a + b, 0);
+   if (total <= 0) throw new Error('Probabilities must sum to positive value');
   
   const normalized = probabilities.map(p => p / total);
 
@@ -24,20 +27,32 @@ export const categorical = (rng, categories, probabilities) => {
 };
 
 export const multinomial = (rng, n, categories, probabilities) => {
-  const result = {};
-  for (const cat of categories) {
-    result[cat] = 0;
-  }
+   if (!rng || typeof rng.nextFloat !== 'function') {
+     throw new TypeError('First argument must be RNG instance');
+   }
+   if (typeof n !== 'number' || !Number.isInteger(n) || n <= 0) {
+     throw new Error('n must be positive integer');
+   }
+   const result = {};
+   for (const cat of categories) {
+     result[cat] = 0;
+   }
 
-  for (let i = 0; i < n; i++) {
-    const pick = categorical(rng, categories, probabilities);
-    result[pick]++;
-  }
+   for (let i = 0; i < n; i++) {
+     const pick = categorical(rng, categories, probabilities);
+     result[pick]++;
+   }
 
-  return result;
-};
+   return result;
+ };
 
 export const categorical2D = (rng, matrix) => {
+   if (!rng || typeof rng.nextFloat !== 'function') {
+     throw new TypeError('First argument must be RNG instance');
+   }
+   if (!Array.isArray(matrix) || matrix.length === 0) {
+     throw new TypeError('matrix must be non-empty array');
+   }
    const rows = matrix.length;
    const cols = matrix[0].length;
 

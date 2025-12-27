@@ -107,8 +107,53 @@ export class Tent {
 }
 
 export class Mixer {
-  constructor(rng1: any, rng2: any);
-  next(): bigint;
-  nextInt(max?: number): number;
-  nextFloat(): number;
+   constructor(rng1: IGenerator, rng2: IGenerator);
+   next(): bigint;
+   nextInt(max?: number): number;
+   nextFloat(): number;
 }
+
+export function beta(rng: RNG | IGenerator, alpha: number, beta: number): number;
+export function gamma(rng: RNG | IGenerator, shape: number, scale?: number): number;
+export function chi2(rng: RNG | IGenerator, k: number): number;
+export function weibull(rng: RNG | IGenerator, shape: number, scale?: number): number;
+export function lognormal(rng: RNG | IGenerator, mu: number, sigma: number): number;
+export function rayleigh(rng: RNG | IGenerator, sigma?: number): number;
+export function cauchy(rng: RNG | IGenerator, median?: number, scale?: number): number;
+
+export function brownianMotion(rng: RNG | IGenerator, steps: number, dt?: number): number[];
+export function ornsteinUhlenbeck(rng: RNG | IGenerator, steps: number, theta?: number, mu?: number, sigma?: number): number[];
+export function geometricBrownian(rng: RNG | IGenerator, steps: number, mu?: number, sigma?: number, dt?: number): number[];
+
+export function perlin2D(rng: RNG | IGenerator, x: number, y: number, octaves?: number): number;
+export function valueNoise(rng: RNG | IGenerator, x: number, y: number, scale?: number): number;
+
+export function categorical<T>(rng: RNG | IGenerator, categories: T[], probabilities: number[]): T;
+export function multinomial(rng: RNG | IGenerator, n: number, categories: any[], probabilities: number[]): Record<string, number>;
+export function categorical2D(rng: RNG | IGenerator, matrix: number[][]): [number, number];
+
+export function combinations<T>(arr: T[], k: number): T[][];
+export function permutations<T>(arr: T[]): T[][];
+export function kPermutations<T>(arr: T[], k: number): T[][];
+export function randomCombination<T>(arr: T[], k: number, rng: RNG | IGenerator): T[];
+export function randomPermutation<T>(arr: T[], rng: RNG | IGenerator): T[];
+
+export function rotateBits(val: bigint, shift: number | bigint): bigint;
+export function extractBits(val: bigint, start: number, length: number): bigint;
+export function hammingWeight(val: bigint): number;
+export function bitRange(val: bigint, min: number, max: number): bigint;
+
+export class SeedSequence {
+   constructor(entropy?: null | string | number | bigint);
+   next(): bigint;
+   spawn(n?: number): bigint[];
+}
+
+export function seedMultiple(rngClasses: (new (seed?: number | bigint) => IGenerator)[], entropy?: null | string | number | bigint): IGenerator[];
+export function seedFromTime(): bigint;
+export function seedFromEntropy(entropy: string): bigint;
+
+export function chiSquareTest(data: number[], bins?: number): { chi2: number; expected: number; histogram: number[] };
+export function entropy(data: number[], bins?: number): number;
+export function autocorrelation(data: number[], lag: number): number;
+export function runTest(data: number[], threshold?: number): number;

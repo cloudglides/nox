@@ -65,7 +65,7 @@ export const weightedSample = (arr, weights, count, rng) => {
     const result = [];
     
     for (let i = 0; i < count; i++) {
-      const idx = weightedPickIndex(remainingWeights.slice(i), rng);
+      const idx = weightedPickIndexRange(remainingWeights, i, rng);
       result.push(remaining[i + idx]);
       
       const temp = remaining[i];
@@ -78,19 +78,20 @@ export const weightedSample = (arr, weights, count, rng) => {
     }
     
     return result;
-  };
+    };
 
-const weightedPickIndex = (weights, rng) => {
-  const total = weights.reduce((a, b) => a + b, 0);
-  let rand = rng.nextFloat() * total;
-  
-  for (let i = 0; i < weights.length; i++) {
-    rand -= weights[i];
-    if (rand <= 0) return i;
-  }
-  
-  return weights.length - 1;
-};
+    const weightedPickIndexRange = (weights, start, rng) => {
+    let total = 0;
+    for (let i = start; i < weights.length; i++) {
+     total += weights[i];
+    }
+    let rand = rng.nextFloat() * total;
+    for (let i = start; i < weights.length; i++) {
+     rand -= weights[i];
+     if (rand <= 0) return i - start;
+    }
+    return weights.length - start - 1;
+    };
 
 export const reservoirSample = (stream, k, rng) => {
    if (!Array.isArray(stream) || stream.length === 0) {
