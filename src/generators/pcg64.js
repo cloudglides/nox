@@ -1,11 +1,17 @@
 export class PCG64 {
-  constructor(seed = 1n, inc = 1n) {
-    this.state = 0n;
-    this.inc = ((typeof inc === 'number' ? BigInt(inc) : inc) << 1n) | 1n;
-    this.step();
-    this.state += (typeof seed === 'number' ? BigInt(seed) : seed);
-    this.step();
-  }
+   constructor(seed = 1n, inc = 1n) {
+     if (typeof seed !== 'number' && typeof seed !== 'bigint') {
+       throw new TypeError('Seed must be a number or bigint');
+     }
+     if (typeof inc !== 'number' && typeof inc !== 'bigint') {
+       throw new TypeError('inc must be a number or bigint');
+     }
+     this.state = 0n;
+     this.inc = ((typeof inc === 'number' ? BigInt(inc) : inc) << 1n) | 1n;
+     this.step();
+     this.state += (typeof seed === 'number' ? BigInt(seed) : seed);
+     this.step();
+   }
 
   step() {
     this.state = (this.state * 6364136223846793005n + this.inc) & ((1n << 64n) - 1n);

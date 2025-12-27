@@ -1,7 +1,10 @@
 export class Splitmix64 {
-  constructor(seed = 1) {
-    this.state = BigInt(seed);
-  }
+   constructor(seed = 1) {
+     if (typeof seed !== 'number' && typeof seed !== 'bigint') {
+       throw new TypeError('Seed must be a number or bigint');
+     }
+     this.state = BigInt(seed);
+   }
 
   next() {
     let z = (this.state += 0x9e3779b97f4a7c15n);

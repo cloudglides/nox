@@ -3,7 +3,7 @@ export const shuffle = (arr, rng, inPlace = false) => {
      throw new TypeError('First argument must be array');
    }
    if (!rng || typeof rng.nextInt !== 'function') {
-     throw new TypeError('RNG instance required');
+     throw new TypeError('Second argument must be RNG instance');
    }
    
    const target = inPlace ? arr : [...arr];
@@ -27,7 +27,7 @@ export const pick = (arr, rng) => {
     throw new Error('Array cannot be empty');
   }
   if (!rng || typeof rng.nextInt !== 'function') {
-    throw new TypeError('RNG instance required');
+    throw new TypeError('Second argument must be RNG instance');
   }
   
   return arr[rng.nextInt(arr.length)];
@@ -47,7 +47,7 @@ export const sample = (arr, count, rng) => {
       throw new Error('Sample count exceeds array length');
     }
     if (!rng || typeof rng.nextInt !== 'function') {
-      throw new TypeError('RNG instance required');
+      throw new TypeError('Second argument must be RNG instance');
     }
     
     const copy = [...arr];

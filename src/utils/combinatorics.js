@@ -72,7 +72,7 @@ export const randomCombination = (arr, k, rng) => {
      throw new Error('k cannot exceed array length');
    }
    if (!rng || typeof rng.nextInt !== 'function') {
-     throw new TypeError('rng must be RNG instance');
+     throw new TypeError('rng must be an RNG instance');
    }
    const indices = new Set();
    const n = arr.length;
@@ -89,7 +89,7 @@ export const randomPermutation = (arr, rng) => {
      throw new TypeError('arr must be array');
    }
    if (!rng || typeof rng.nextInt !== 'function') {
-     throw new TypeError('rng must be RNG instance');
+     throw new TypeError('rng must be an RNG instance');
    }
    const copy = [...arr];
    for (let i = copy.length - 1; i > 0; i--) {

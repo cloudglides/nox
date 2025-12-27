@@ -8,9 +8,17 @@ export const beta = (rng, alpha, beta) => {
    if (typeof beta !== 'number' || beta <= 0) {
      throw new Error('beta must be a positive number');
    }
-   const u = -Math.log(rng.nextFloat()) / alpha;
-   const v = -Math.log(rng.nextFloat()) / beta;
-   return u / (u + v);
+   let u = rng.nextFloat();
+   while (u === 0 || u === 1) {
+     u = rng.nextFloat();
+   }
+   let v = rng.nextFloat();
+   while (v === 0 || v === 1) {
+     v = rng.nextFloat();
+   }
+   const uVal = -Math.log(u) / alpha;
+   const vVal = -Math.log(v) / beta;
+   return uVal / (uVal + vVal);
  };
 
 export const gamma = (rng, shape, scale = 1) => {
