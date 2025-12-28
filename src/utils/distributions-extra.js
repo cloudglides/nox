@@ -38,10 +38,10 @@ export const gamma = (rng, shape, scale = 1) => {
   const d = shape - 1 / 3;
   const c = 1 / Math.sqrt(9 * d);
   
-  let z, v, u;
+  let z, v, u, x;
   do {
     do {
-      const x = (rng.nextFloat() * 2 - 1);
+      x = (rng.nextFloat() * 2 - 1);
       v = 1 + c * x;
     } while (v <= 0);
     

@@ -74,7 +74,7 @@ export class RNG {
      }
      const len = arr.length;
      if (len === 0) {
-       throw new TypeError('choice() requires non-empty array');
+       throw new RangeError('choice() requires non-empty array');
      }
      return arr[this.nextInt(len)];
    }

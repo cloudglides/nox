@@ -21,9 +21,11 @@ export class PCG64 {
     const oldState = this.state;
     this.step();
 
-    const xorShifted = ((oldState >> 18n) ^ oldState) >> 27n;
+    const M = 0x2545F4914F6CDD1Dn;
+    const x = (oldState >> 18n) ^ oldState;
     const rot = oldState >> 59n;
-    const result = (xorShifted >> rot) | ((xorShifted << (64n - rot)) & ((1n << 64n) - 1n));
+    const rotated = (x >> rot) | ((x << (64n - rot)) & ((1n << 64n) - 1n));
+    const result = ((rotated * M) & ((1n << 64n) - 1n)) ^ (rotated >> 29n);
     
     return result;
   }

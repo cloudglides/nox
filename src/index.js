@@ -17,7 +17,14 @@ export {
   reservoirSample,
   meanTest,
   varianceTest,
-  kolmogorovSmirnovTest
+  kolmogorovSmirnovTest,
+  beta,
+  gamma,
+  chi2,
+  weibull,
+  lognormal,
+  rayleigh,
+  cauchy
 } from './core.js';
 
 export {
@@ -29,3 +36,4 @@ export {
   Tent,
   Mixer
 } from './generators/index.js';
+

@@ -1,28 +1,28 @@
 export const weightedPick = (arr, weights, rng) => {
-   if (!Array.isArray(arr) || arr.length === 0) {
-     throw new TypeError('arr must be a non-empty array');
-   }
-   if (!Array.isArray(weights) || weights.length === 0) {
-     throw new TypeError('weights must be a non-empty array');
-   }
-   if (arr.length !== weights.length) {
-     throw new Error('arr and weights must have same length');
-   }
-   if (!rng || typeof rng.nextFloat !== 'function') {
-     throw new TypeError('rng must be an RNG instance');
-   }
-   
-   let total = 0;
-   for (let i = 0; i < weights.length; i++) {
-     if (typeof weights[i] !== 'number') {
-       throw new TypeError('All weights must be numbers');
-     }
-     total += weights[i];
-   }
-   
-   if (total <= 0) {
-     throw new Error('Weights must sum to positive value');
-   }
+    if (!Array.isArray(arr) || arr.length === 0) {
+      throw new RangeError('arr must be a non-empty array');
+    }
+    if (!Array.isArray(weights) || weights.length === 0) {
+      throw new RangeError('weights must be a non-empty array');
+    }
+    if (arr.length !== weights.length) {
+      throw new RangeError('arr and weights must have same length');
+    }
+    if (!rng || typeof rng.nextFloat !== 'function') {
+      throw new TypeError('rng must be an RNG instance');
+    }
+    
+    let total = 0;
+    for (let i = 0; i < weights.length; i++) {
+      if (typeof weights[i] !== 'number') {
+        throw new TypeError('All weights must be numbers');
+      }
+      total += weights[i];
+    }
+    
+    if (total <= 0) {
+      throw new RangeError('Weights must sum to positive value');
+    }
    
    let rand = rng.nextFloat() * total;
    let cumsum = 0;
@@ -36,15 +36,15 @@ export const weightedPick = (arr, weights, rng) => {
  };
 
 export const weightedSample = (arr, weights, count, rng) => {
-    if (!Array.isArray(arr) || arr.length === 0) {
-      throw new TypeError('arr must be a non-empty array');
-    }
-    if (!Array.isArray(weights) || weights.length === 0) {
-      throw new TypeError('weights must be a non-empty array');
-    }
-    if (arr.length !== weights.length) {
-      throw new Error('arr and weights must have same length');
-    }
+     if (!Array.isArray(arr) || arr.length === 0) {
+       throw new RangeError('arr must be a non-empty array');
+     }
+     if (!Array.isArray(weights) || weights.length === 0) {
+       throw new RangeError('weights must be a non-empty array');
+     }
+     if (arr.length !== weights.length) {
+       throw new RangeError('arr and weights must have same length');
+     }
     if (typeof count !== 'number' || !Number.isInteger(count)) {
       throw new TypeError('count must be an integer');
     }

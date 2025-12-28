@@ -20,35 +20,35 @@ export const shuffle = (arr, rng, inPlace = false) => {
  };
 
 export const pick = (arr, rng) => {
-  if (!Array.isArray(arr)) {
-    throw new TypeError('First argument must be array');
-  }
-  if (arr.length === 0) {
-    throw new Error('Array cannot be empty');
-  }
-  if (!rng || typeof rng.nextInt !== 'function') {
-    throw new TypeError('Second argument must be RNG instance');
-  }
-  
-  return arr[rng.nextInt(arr.length)];
-};
+   if (!Array.isArray(arr)) {
+     throw new TypeError('First argument must be array');
+   }
+   if (arr.length === 0) {
+     throw new RangeError('Array cannot be empty');
+   }
+   if (!rng || typeof rng.nextInt !== 'function') {
+     throw new TypeError('Second argument must be RNG instance');
+   }
+   
+   return arr[rng.nextInt(arr.length)];
+ };
 
 export const sample = (arr, count, rng) => {
-    if (!Array.isArray(arr)) {
-      throw new TypeError('First argument must be array');
-    }
-    if (typeof count !== 'number' || !Number.isInteger(count)) {
-      throw new TypeError('Sample count must be an integer');
-    }
-    if (count <= 0) {
-      throw new Error('Sample count must be positive');
-    }
-    if (count > arr.length) {
-      throw new Error('Sample count exceeds array length');
-    }
-    if (!rng || typeof rng.nextInt !== 'function') {
-      throw new TypeError('Second argument must be RNG instance');
-    }
+     if (!Array.isArray(arr)) {
+       throw new TypeError('First argument must be array');
+     }
+     if (typeof count !== 'number' || !Number.isInteger(count)) {
+       throw new TypeError('Sample count must be an integer');
+     }
+     if (count <= 0) {
+       throw new RangeError('Sample count must be positive');
+     }
+     if (count > arr.length) {
+       throw new RangeError('Sample count exceeds array length');
+     }
+     if (!rng || typeof rng.nextInt !== 'function') {
+       throw new TypeError('Second argument must be RNG instance');
+     }
     
     const copy = [...arr];
     const len = copy.length;
