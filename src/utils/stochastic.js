@@ -1,13 +1,19 @@
 export const brownianMotion = (rng, steps, dt = 1) => {
-   if (!rng || typeof rng.nextFloat !== 'function') {
-     throw new TypeError('First argument must be RNG instance');
-   }
-   if (typeof steps !== 'number' || !Number.isInteger(steps) || steps <= 0) {
-     throw new Error('steps must be a positive integer');
-   }
-   if (typeof dt !== 'number' || dt <= 0) {
-     throw new Error('dt must be a positive number');
-   }
+    if (!rng || typeof rng.nextFloat !== 'function') {
+      throw new TypeError('First argument must be RNG instance');
+    }
+    if (typeof steps !== 'number' || !Number.isInteger(steps)) {
+      throw new TypeError('steps must be an integer');
+    }
+    if (steps <= 0) {
+      throw new RangeError('steps must be positive');
+    }
+    if (typeof dt !== 'number') {
+      throw new TypeError('dt must be a number');
+    }
+    if (dt <= 0) {
+      throw new RangeError('dt must be positive');
+    }
    const path = [0];
    for (let i = 0; i < steps; i++) {
      const drift = -0.5 * dt;
@@ -22,8 +28,11 @@ export const brownianMotion = (rng, steps, dt = 1) => {
    if (!rng || typeof rng.nextFloat !== 'function') {
      throw new TypeError('First argument must be RNG instance');
    }
-   if (typeof steps !== 'number' || !Number.isInteger(steps) || steps <= 0) {
-     throw new Error('steps must be a positive integer');
+   if (typeof steps !== 'number' || !Number.isInteger(steps)) {
+     throw new TypeError('steps must be an integer');
+   }
+   if (steps <= 0) {
+     throw new RangeError('steps must be positive');
    }
    if (typeof theta !== 'number') {
      throw new TypeError('theta must be a number');
@@ -31,8 +40,11 @@ export const brownianMotion = (rng, steps, dt = 1) => {
    if (typeof mu !== 'number') {
      throw new TypeError('mu must be a number');
    }
-   if (typeof sigma !== 'number' || sigma <= 0) {
-     throw new Error('sigma must be a positive number');
+   if (typeof sigma !== 'number') {
+     throw new TypeError('sigma must be a number');
+   }
+   if (sigma <= 0) {
+     throw new RangeError('sigma must be positive');
    }
    const path = [mu];
    for (let i = 0; i < steps; i++) {
@@ -48,17 +60,26 @@ export const brownianMotion = (rng, steps, dt = 1) => {
    if (!rng || typeof rng.nextFloat !== 'function') {
      throw new TypeError('First argument must be RNG instance');
    }
-   if (typeof steps !== 'number' || !Number.isInteger(steps) || steps <= 0) {
-     throw new Error('steps must be a positive integer');
+   if (typeof steps !== 'number' || !Number.isInteger(steps)) {
+     throw new TypeError('steps must be an integer');
+   }
+   if (steps <= 0) {
+     throw new RangeError('steps must be positive');
    }
    if (typeof mu !== 'number') {
      throw new TypeError('mu must be a number');
    }
-   if (typeof sigma !== 'number' || sigma <= 0) {
-     throw new Error('sigma must be a positive number');
+   if (typeof sigma !== 'number') {
+     throw new TypeError('sigma must be a number');
    }
-   if (typeof dt !== 'number' || dt <= 0) {
-     throw new Error('dt must be a positive number');
+   if (sigma <= 0) {
+     throw new RangeError('sigma must be positive');
+   }
+   if (typeof dt !== 'number') {
+     throw new TypeError('dt must be a number');
+   }
+   if (dt <= 0) {
+     throw new RangeError('dt must be positive');
    }
    const path = [1];
    for (let i = 0; i < steps; i++) {

@@ -1,13 +1,19 @@
 export const beta = (rng, alpha, beta) => {
-   if (!rng || typeof rng.nextFloat !== 'function') {
-     throw new TypeError('First argument must be RNG instance');
-   }
-   if (typeof alpha !== 'number' || alpha <= 0) {
-     throw new Error('alpha must be a positive number');
-   }
-   if (typeof beta !== 'number' || beta <= 0) {
-     throw new Error('beta must be a positive number');
-   }
+    if (!rng || typeof rng.nextFloat !== 'function') {
+      throw new TypeError('First argument must be RNG instance');
+    }
+    if (typeof alpha !== 'number') {
+      throw new TypeError('alpha must be a number');
+    }
+    if (alpha <= 0) {
+      throw new RangeError('alpha must be positive');
+    }
+    if (typeof beta !== 'number') {
+      throw new TypeError('beta must be a number');
+    }
+    if (beta <= 0) {
+      throw new RangeError('beta must be positive');
+    }
    let u = rng.nextFloat();
    while (u === 0 || u === 1) {
      u = rng.nextFloat();
@@ -22,15 +28,21 @@ export const beta = (rng, alpha, beta) => {
  };
 
 export const gamma = (rng, shape, scale = 1) => {
-   if (!rng || typeof rng.nextFloat !== 'function') {
-     throw new TypeError('First argument must be RNG instance');
-   }
-   if (typeof shape !== 'number' || shape <= 0) {
-     throw new Error('shape must be a positive number');
-   }
-   if (typeof scale !== 'number' || scale <= 0) {
-     throw new Error('scale must be a positive number');
-   }
+    if (!rng || typeof rng.nextFloat !== 'function') {
+      throw new TypeError('First argument must be RNG instance');
+    }
+    if (typeof shape !== 'number') {
+      throw new TypeError('shape must be a number');
+    }
+    if (shape <= 0) {
+      throw new RangeError('shape must be positive');
+    }
+    if (typeof scale !== 'number') {
+      throw new TypeError('scale must be a number');
+    }
+    if (scale <= 0) {
+      throw new RangeError('scale must be positive');
+    }
    if (shape < 1) {
      return gamma(rng, shape + 1, scale) * Math.pow(rng.nextFloat(), 1 / shape);
    }
@@ -54,8 +66,14 @@ export const gamma = (rng, shape, scale = 1) => {
 };
 
 export const chi2 = (rng, k) => {
-   if (typeof k !== 'number' || k <= 0) {
-     throw new Error('k must be a positive number');
-   }
-   return gamma(rng, k / 2, 2);
- };
+    if (!rng || typeof rng.nextFloat !== 'function') {
+      throw new TypeError('First argument must be RNG instance');
+    }
+    if (typeof k !== 'number') {
+      throw new TypeError('k must be a number');
+    }
+    if (k <= 0) {
+      throw new RangeError('k must be positive');
+    }
+    return gamma(rng, k / 2, 2);
+  };

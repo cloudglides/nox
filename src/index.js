@@ -24,7 +24,34 @@ export {
   weibull,
   lognormal,
   rayleigh,
-  cauchy
+  cauchy,
+  brownianMotion,
+  ornsteinUhlenbeck,
+  geometricBrownian,
+  categorical,
+  multinomial,
+  categorical2D,
+  perlin2D,
+  valueNoise,
+  combinations,
+  permutations,
+  kPermutations,
+  randomCombination,
+  randomPermutation,
+  rotateBits,
+  extractBits,
+  hammingWeight,
+  bitRange,
+  SeedSequence,
+  seedMultiple,
+  seedFromTime,
+  seedFromEntropy,
+  chiSquareTest,
+  entropy,
+  autocorrelation,
+  runTest,
+  clearCryptoCache,
+  combined
 } from './core.js';
 
 export {
@@ -37,3 +64,4 @@ export {
   Mixer
 } from './generators/index.js';
 
+jbhhjbjhbjhbhbjhbjbbhbhjhbbhbjhbjhbjhbjhbjhbjhbjhbjbjhbjhbjhbhbjhbhjbhbjhbhbhbbbbbhjhbjhbjhbhjbjhbjhjhbjhbhjhbjhjhbbhhbhjbjhbbhjhhjbjhbjhhhhhhhhhhhhhhhhhhhhhhhhhhhbjhbjhbjhbhbjhbjhbjhbjhbjhbhjbjhbjhbjhbjhbjhbjhbjhbjhbjjhbjhbjhbjhbjhbjhbjhbjbhjhbjhbhjjhbjhbjhbjhbjhbjhbjhbjhb
