@@ -24,6 +24,10 @@ export {
   meanTest,
   varianceTest,
   kolmogorovSmirnovTest,
+  skewness,
+  kurtosis,
+  median,
+  quantile,
   beta,
   gamma,
   chi2,
@@ -33,6 +37,13 @@ export {
   lognormal,
   rayleigh,
   cauchy,
+  dirichlet,
+  dirichlets,
+  mixture,
+  mixtures,
+  studentT,
+  studentTs,
+  betaBinomial,
   brownianMotion,
   ornsteinUhlenbeck,
   geometricBrownian,
@@ -61,12 +72,25 @@ export {
   seedMultiple,
   seedFromTime,
   seedFromEntropy,
+  repeat,
+  until,
+  times,
   chiSquareTest,
   entropy,
   autocorrelation,
   runTest,
   clearCryptoCache,
-  combined
+  combined,
+  bootstrap,
+  jackknife,
+  crossValidation,
+  permutationTest,
+  stratifiedSample,
+  stratifiedSampleProportional,
+  stratify,
+  cdf,
+  ppf,
+  sf
 } from './core.js';
 
 export {
@@ -78,4 +102,3 @@ export {
   Tent,
   Mixer
 } from './generators/index.js';
-

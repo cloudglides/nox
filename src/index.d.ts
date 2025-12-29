@@ -69,6 +69,10 @@ export interface KSTestResult {
 export function meanTest(data: number[], expectedMean?: number): TestResult;
 export function varianceTest(data: number[], expectedVariance?: number): TestResult;
 export function kolmogorovSmirnovTest(data: number[]): KSTestResult;
+export function skewness(data: number[]): number;
+export function kurtosis(data: number[]): number;
+export function median(data: number[]): number;
+export function quantile(data: number[], q: number): number;
 
 export class Xorshift64 {
   constructor(seed?: number | bigint);

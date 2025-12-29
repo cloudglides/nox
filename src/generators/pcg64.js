@@ -31,9 +31,12 @@ export class PCG64 {
   }
 
   nextInt(max = 2147483647) {
-    if (max <= 0) {
-      throw new Error('max must be positive');
-    }
+     if (typeof max !== 'number' || !Number.isInteger(max)) {
+       throw new TypeError('max must be an integer');
+     }
+     if (max <= 0) {
+       throw new RangeError('max must be positive');
+     }
     
     if (max < 65536) {
       return Number(this.next() & 0xFFFFn) % max;

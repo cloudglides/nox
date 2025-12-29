@@ -24,12 +24,12 @@ export class Mixer {
    }
  
    nextInt(max = 2147483647) {
-     if (max <= 0) {
-       throw new Error('max must be positive');
-     }
-     if (!Number.isInteger(max)) {
-       throw new TypeError('max must be an integer');
-     }
+      if (typeof max !== 'number' || !Number.isInteger(max)) {
+        throw new TypeError('max must be an integer');
+      }
+      if (max <= 0) {
+        throw new RangeError('max must be positive');
+      }
      
      const v1 = this.rng1.nextInt(max);
      const v2 = this.rng2.nextInt(max);

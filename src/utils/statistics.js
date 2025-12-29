@@ -139,5 +139,67 @@ export const varianceTest = (data, expectedVariance = 1 / 12) => {
      expectedVariance,
      chi2Statistic: chi2,
      degreesOfFreedom: data.length - 1
-   };
- };
+     };
+     };
+
+     export const skewness = (data) => {
+     if (!Array.isArray(data) || data.length < 3) {
+     throw new Error('Data must be array with at least 3 elements');
+     }
+
+     const n = data.length;
+     const mean = data.reduce((a, b) => a + b, 0) / n;
+     const m2 = data.reduce((sum, x) => sum + (x - mean) ** 2, 0) / n;
+     const m3 = data.reduce((sum, x) => sum + (x - mean) ** 3, 0) / n;
+     const std = Math.sqrt(m2);
+
+     if (std === 0) return 0;
+     return m3 / (std ** 3);
+     };
+
+     export const kurtosis = (data) => {
+     if (!Array.isArray(data) || data.length < 4) {
+     throw new Error('Data must be array with at least 4 elements');
+     }
+
+     const n = data.length;
+     const mean = data.reduce((a, b) => a + b, 0) / n;
+     const m2 = data.reduce((sum, x) => sum + (x - mean) ** 2, 0) / n;
+     const m4 = data.reduce((sum, x) => sum + (x - mean) ** 4, 0) / n;
+     const std = Math.sqrt(m2);
+
+     if (std === 0) return 0;
+     return m4 / (std ** 4) - 3;
+     };
+
+     export const median = (data) => {
+     if (!Array.isArray(data) || data.length === 0) {
+     throw new Error('Data must be non-empty array');
+     }
+
+     const sorted = [...data].sort((a, b) => a - b);
+     const mid = Math.floor(sorted.length / 2);
+
+     if (sorted.length % 2 === 1) {
+     return sorted[mid];
+     }
+     return (sorted[mid - 1] + sorted[mid]) / 2;
+     };
+
+     export const quantile = (data, q) => {
+     if (!Array.isArray(data) || data.length === 0) {
+     throw new Error('Data must be non-empty array');
+     }
+     if (typeof q !== 'number' || q < 0 || q > 1) {
+     throw new RangeError('Quantile must be between 0 and 1');
+     }
+
+     const sorted = [...data].sort((a, b) => a - b);
+     const idx = q * (sorted.length - 1);
+     const lower = Math.floor(idx);
+     const upper = Math.ceil(idx);
+     const weight = idx % 1;
+
+     if (lower === upper) return sorted[lower];
+     return sorted[lower] * (1 - weight) + sorted[upper] * weight;
+     };

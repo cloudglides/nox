@@ -1,5 +1,8 @@
 export class MT19937 {
   constructor(seed = 5489) {
+    if (typeof seed !== 'number' && typeof seed !== 'bigint') {
+      throw new TypeError('Seed must be a number or bigint');
+    }
     this.N = 624;
     this.M = 397;
     this.MATRIX_A = 0x9908b0df;
