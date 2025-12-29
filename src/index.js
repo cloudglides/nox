@@ -112,7 +112,18 @@ export {
   flatten,
   zip,
   transpose,
-  partition
+  partition,
+  tTest,
+  welchTTest,
+  mannWhitneyU,
+  oneWayAnova,
+  zscore,
+  standardize,
+  minMaxScale,
+  logTransform,
+  sqrtTransform,
+  rank,
+  robustScale
 } from './core.js';
 
 export {
@@ -124,4 +135,3 @@ export {
   Tent,
   Mixer
 } from './generators/index.js';
-
