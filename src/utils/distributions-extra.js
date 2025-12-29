@@ -66,14 +66,58 @@ export const gamma = (rng, shape, scale = 1) => {
 };
 
 export const chi2 = (rng, k) => {
-    if (!rng || typeof rng.nextFloat !== 'function') {
-      throw new TypeError('First argument must be RNG instance');
-    }
-    if (typeof k !== 'number') {
-      throw new TypeError('k must be a number');
-    }
-    if (k <= 0) {
-      throw new RangeError('k must be positive');
-    }
-    return gamma(rng, k / 2, 2);
-  };
+     if (!rng || typeof rng.nextFloat !== 'function') {
+       throw new TypeError('First argument must be RNG instance');
+     }
+     if (typeof k !== 'number') {
+       throw new TypeError('k must be a number');
+     }
+     if (k <= 0) {
+       throw new RangeError('k must be positive');
+     }
+     return gamma(rng, k / 2, 2);
+   };
+
+export const binomial = (rng, n, p) => {
+     if (!rng || typeof rng.nextFloat !== 'function') {
+       throw new TypeError('First argument must be RNG instance');
+     }
+     if (typeof n !== 'number' || !Number.isInteger(n)) {
+       throw new TypeError('n must be an integer');
+     }
+     if (n <= 0) {
+       throw new RangeError('n must be positive');
+     }
+     if (typeof p !== 'number') {
+       throw new TypeError('p must be a number');
+     }
+     if (p < 0 || p > 1) {
+       throw new RangeError('p must be between 0 and 1');
+     }
+
+     if (p === 0) return 0;
+     if (p === 1) return n;
+     if (n > 30 && p > 0.1 && p < 0.9) {
+       return Math.round(n * p + Math.sqrt(n * p * (1 - p)) * (rng.nextFloat() * 2 - 1));
+     }
+
+     let count = 0;
+     for (let i = 0; i < n; i++) {
+       if (rng.nextFloat() < p) count++;
+     }
+     return count;
+   };
+
+export const geometric = (rng, p) => {
+     if (!rng || typeof rng.nextFloat !== 'function') {
+       throw new TypeError('First argument must be RNG instance');
+     }
+     if (typeof p !== 'number') {
+       throw new TypeError('p must be a number');
+     }
+     if (p <= 0 || p > 1) {
+       throw new RangeError('p must be between 0 and 1 (exclusive 0)');
+     }
+
+     return Math.floor(Math.log(rng.nextFloat()) / Math.log(1 - p)) + 1;
+   };

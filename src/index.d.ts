@@ -29,10 +29,16 @@ export function normal(rng: RNG | IGenerator, mean?: number, stddev?: number): n
 export function exponential(rng: RNG | IGenerator, lambda?: number): number;
 export function uniform(rng: RNG | IGenerator, min: number, max: number): number;
 export function poisson(rng: RNG | IGenerator, lambda: number): number;
+export function normals(rng: RNG | IGenerator, count: number, mean?: number, stddev?: number): number[];
+export function exponentials(rng: RNG | IGenerator, count: number, lambda?: number): number[];
 
 export function shuffle<T>(arr: T[], rng: RNG | IGenerator, inPlace?: boolean): T[];
 export function pick<T>(arr: T[], rng: RNG | IGenerator): T;
 export function sample<T>(arr: T[], count: number, rng: RNG | IGenerator): T[];
+export function sampleWithReplacement<T>(arr: T[], count: number, rng: RNG | IGenerator): T[];
+export function permute<T>(arr: T[], rng: RNG | IGenerator): T[];
+export function range(start: number, end: number, step?: number): number[];
+export function cycle<T>(arr: T[], count: number): T[];
 
 export function saveState(rng: RNG): any;
 export function restoreState(rng: RNG, snapshot: any): void;
@@ -116,6 +122,8 @@ export class Mixer {
 export function beta(rng: RNG | IGenerator, alpha: number, beta: number): number;
 export function gamma(rng: RNG | IGenerator, shape: number, scale?: number): number;
 export function chi2(rng: RNG | IGenerator, k: number): number;
+export function binomial(rng: RNG | IGenerator, n: number, p: number): number;
+export function geometric(rng: RNG | IGenerator, p: number): number;
 export function weibull(rng: RNG | IGenerator, shape: number, scale?: number): number;
 export function lognormal(rng: RNG | IGenerator, mu: number, sigma: number): number;
 export function rayleigh(rng: RNG | IGenerator, sigma?: number): number;
@@ -142,6 +150,13 @@ export function rotateBits(val: bigint, shift: number | bigint): bigint;
 export function extractBits(val: bigint, start: number, length: number): bigint;
 export function hammingWeight(val: bigint): number;
 export function bitRange(val: bigint, min: number, max: number): bigint;
+export function popcountNum(val: number): number;
+export function clz(val: bigint): number;
+export function ctz(val: bigint): number;
+export function reverseBits(val: bigint, width?: number): bigint;
+export function setBit(val: bigint, pos: number): bigint;
+export function clearBit(val: bigint, pos: number): bigint;
+export function toggleBit(val: bigint, pos: number): bigint;
 
 export class SeedSequence {
    constructor(entropy?: null | string | number | bigint);

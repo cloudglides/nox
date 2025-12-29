@@ -67,18 +67,69 @@ export const poisson = (rng, lambda) => {
 };
 
 export const uniform = (rng, min, max) => {
-   if (!rng || typeof rng.nextFloat !== 'function') {
-     throw new TypeError('First argument must be RNG instance');
-   }
-   if (typeof min !== 'number') {
-     throw new TypeError('min must be a number');
-   }
-   if (typeof max !== 'number') {
-     throw new TypeError('max must be a number');
-   }
-   if (min >= max) {
-     throw new RangeError('min must be less than max');
-   }
+    if (!rng || typeof rng.nextFloat !== 'function') {
+      throw new TypeError('First argument must be RNG instance');
+    }
+    if (typeof min !== 'number') {
+      throw new TypeError('min must be a number');
+    }
+    if (typeof max !== 'number') {
+      throw new TypeError('max must be a number');
+    }
+    if (min >= max) {
+      throw new RangeError('min must be less than max');
+    }
+   
+    return min + rng.nextFloat() * (max - min);
+  };
+
+export const normals = (rng, count, mean = 0, stddev = 1) => {
+  if (typeof count !== 'number' || !Number.isInteger(count)) {
+    throw new TypeError('count must be an integer');
+  }
+  if (count <= 0) {
+    throw new RangeError('count must be positive');
+  }
+  const result = new Array(count);
+  let cached = null;
   
-  return min + rng.nextFloat() * (max - min);
+  for (let i = 0; i < count; i++) {
+    if (cached !== null) {
+      result[i] = cached * stddev + mean;
+      cached = null;
+    } else {
+      let u1, u2;
+      do {
+        u1 = rng.nextFloat();
+        u2 = rng.nextFloat();
+      } while (u1 <= 0 || u2 <= 0);
+      
+      const z0 = Math.sqrt(-2 * Math.log(u1)) * Math.cos(TWO_PI * u2);
+      const z1 = Math.sqrt(-2 * Math.log(u1)) * Math.sin(TWO_PI * u2);
+      result[i] = z0 * stddev + mean;
+      cached = z1;
+    }
+  }
+  
+  return result;
+};
+
+export const exponentials = (rng, count, lambda = 1) => {
+  if (typeof count !== 'number' || !Number.isInteger(count)) {
+    throw new TypeError('count must be an integer');
+  }
+  if (count <= 0) {
+    throw new RangeError('count must be positive');
+  }
+  const result = new Array(count);
+  
+  for (let i = 0; i < count; i++) {
+    let u = rng.nextFloat();
+    while (u === 0 || u === 1) {
+      u = rng.nextFloat();
+    }
+    result[i] = -Math.log(1 - u) / lambda;
+  }
+  
+  return result;
 };
