@@ -47,12 +47,19 @@ export const fromMemory = () => {
 };
 
 export const fromCrypto = (bytes = 8) => {
-   try {
-     const now = Date.now();
-     
-     if (cryptoCache && (now - cryptoCacheTime) < 100 && cryptoCacheBytes === bytes) {
-       return cryptoCache;
-     }
+    if (typeof bytes !== 'number' || !Number.isInteger(bytes)) {
+      throw new TypeError('bytes must be an integer');
+    }
+    if (bytes <= 0) {
+      throw new RangeError('bytes must be positive');
+    }
+    
+    try {
+      const now = Date.now();
+      
+      if (cryptoCache && (now - cryptoCacheTime) < 100 && cryptoCacheBytes === bytes) {
+        return cryptoCache;
+      }
     
     let val = 0n;
     

@@ -14,11 +14,17 @@ export const rotateBits = (val, shift) => {
    if (typeof val !== 'bigint') {
      throw new TypeError('val must be bigint');
    }
-   if (typeof start !== 'number' || !Number.isInteger(start) || start < 0) {
-     throw new Error('start must be non-negative integer');
+   if (typeof start !== 'number' || !Number.isInteger(start)) {
+     throw new TypeError('start must be an integer');
    }
-   if (typeof length !== 'number' || !Number.isInteger(length) || length <= 0) {
-     throw new Error('length must be positive integer');
+   if (start < 0) {
+     throw new RangeError('start must be non-negative');
+   }
+   if (typeof length !== 'number' || !Number.isInteger(length)) {
+     throw new TypeError('length must be an integer');
+   }
+   if (length <= 0) {
+     throw new RangeError('length must be positive');
    }
    const mask = (BigInt(1) << BigInt(length)) - BigInt(1);
    return (val >> BigInt(start)) & mask;
@@ -41,11 +47,17 @@ export const rotateBits = (val, shift) => {
    if (typeof val !== 'bigint') {
      throw new TypeError('val must be bigint');
    }
-   if (typeof min !== 'number' || !Number.isInteger(min) || min < 0) {
-     throw new Error('min must be non-negative integer');
+   if (typeof min !== 'number' || !Number.isInteger(min)) {
+     throw new TypeError('min must be an integer');
    }
-   if (typeof max !== 'number' || !Number.isInteger(max) || max <= min) {
-     throw new Error('max must be greater than min');
+   if (min < 0) {
+     throw new RangeError('min must be non-negative');
+   }
+   if (typeof max !== 'number' || !Number.isInteger(max)) {
+     throw new TypeError('max must be an integer');
+   }
+   if (max <= min) {
+     throw new RangeError('max must be greater than min');
    }
    const shift = BigInt(min);
    const mask = (BigInt(1) << BigInt(max - min)) - BigInt(1);

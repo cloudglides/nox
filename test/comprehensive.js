@@ -61,10 +61,11 @@ console.log(`  State restored correctly: ${val2 === val2_restored}`);
 
 console.log('\n7. Generator Cloning');
 const orig = deterministic(12345);
-const origSeq = orig.floats(3);
+orig.floats(3);
 const cloned = cloneGenerator(orig);
-const clonedSeq = cloned.floats(3);
-console.log(`  Clone has same sequence: ${JSON.stringify(origSeq) === JSON.stringify(clonedSeq)}`);
+const origNext = orig.floats(3);
+const clonedNext = cloned.floats(3);
+console.log(`  Clone has same sequence: ${JSON.stringify(origNext) === JSON.stringify(clonedNext)}`);
 
 console.log('\n8. Weighted Sampling');
 const items = ['A', 'B', 'C'];

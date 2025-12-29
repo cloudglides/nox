@@ -5,8 +5,12 @@ export const seedFromTime = () => {
  };
 
 export const seedFromEntropy = (entropy) => {
-  if (typeof entropy !== 'string') throw new TypeError('Entropy must be string');
-  if (entropy.length === 0) throw new Error('Entropy cannot be empty');
+   if (typeof entropy !== 'string') {
+     throw new TypeError('entropy must be a string');
+   }
+   if (entropy.length === 0) {
+     throw new RangeError('entropy cannot be empty');
+   }
   
   let hash = 5381n;
   for (let i = 0; i < entropy.length; i++) {
