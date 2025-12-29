@@ -1,79 +1,108 @@
 export const combinations = (arr, k) => {
-  if (k > arr.length) return [];
-  if (k === 1) return arr.map(x => [x]);
-  if (k === arr.length) return [arr];
-
-  const result = [];
-  const combine = (start, current) => {
-    if (current.length === k) {
-      result.push([...current]);
-      return;
-    }
-    for (let i = start; i < arr.length; i++) {
-      current.push(arr[i]);
-      combine(i + 1, current);
-      current.pop();
-    }
-  };
-
-  combine(0, []);
-  return result;
-};
-
-export const permutations = (arr) => {
-  if (arr.length <= 1) return [arr];
-
-  const result = [];
-  const permute = (arr, start) => {
-    if (start === arr.length - 1) {
-      result.push([...arr]);
-      return;
-    }
-    for (let i = start; i < arr.length; i++) {
-      [arr[start], arr[i]] = [arr[i], arr[start]];
-      permute(arr, start + 1);
-      [arr[start], arr[i]] = [arr[i], arr[start]];
-    }
-  };
-
-  permute([...arr], 0);
-  return result;
-};
-
-export const kPermutations = (arr, k) => {
-  if (k > arr.length) return [];
-  if (k === 1) return arr.map(x => [x]);
-
-  const result = [];
-  const perm = (available, current) => {
-    if (current.length === k) {
-      result.push([...current]);
-      return;
-    }
-    for (let i = 0; i < available.length; i++) {
-      const item = available[i];
-      const remaining = available.slice(0, i).concat(available.slice(i + 1));
-      perm(remaining, [...current, item]);
-    }
-  };
-
-  perm(arr, []);
-  return result;
-};
-
-export const randomCombination = (arr, k, rng) => {
    if (!Array.isArray(arr)) {
-     throw new TypeError('arr must be array');
+     throw new TypeError('arr must be an array');
    }
-   if (typeof k !== 'number' || !Number.isInteger(k) || k <= 0) {
-     throw new Error('k must be a positive integer');
+   if (typeof k !== 'number' || !Number.isInteger(k)) {
+     throw new TypeError('k must be an integer');
+   }
+   if (k <= 0) {
+     throw new RangeError('k must be positive');
    }
    if (k > arr.length) {
-     throw new Error('k cannot exceed array length');
+     throw new RangeError('k cannot exceed array length');
    }
-   if (!rng || typeof rng.nextInt !== 'function') {
-     throw new TypeError('rng must be an RNG instance');
+
+   if (k === 1) return arr.map(x => [x]);
+   if (k === arr.length) return [arr];
+
+   const result = [];
+   const combine = (start, current) => {
+     if (current.length === k) {
+       result.push([...current]);
+       return;
+     }
+     for (let i = start; i < arr.length; i++) {
+       current.push(arr[i]);
+       combine(i + 1, current);
+       current.pop();
+     }
+   };
+
+   combine(0, []);
+   return result;
+ };
+
+export const permutations = (arr) => {
+   if (!Array.isArray(arr)) {
+     throw new TypeError('arr must be an array');
    }
+   if (arr.length <= 1) return [arr];
+
+   const result = [];
+   const permute = (arr, start) => {
+     if (start === arr.length - 1) {
+       result.push([...arr]);
+       return;
+     }
+     for (let i = start; i < arr.length; i++) {
+       [arr[start], arr[i]] = [arr[i], arr[start]];
+       permute(arr, start + 1);
+       [arr[start], arr[i]] = [arr[i], arr[start]];
+     }
+   };
+
+   permute([...arr], 0);
+   return result;
+ };
+
+export const kPermutations = (arr, k) => {
+   if (!Array.isArray(arr)) {
+     throw new TypeError('arr must be an array');
+   }
+   if (typeof k !== 'number' || !Number.isInteger(k)) {
+     throw new TypeError('k must be an integer');
+   }
+   if (k <= 0) {
+     throw new RangeError('k must be positive');
+   }
+   if (k > arr.length) {
+     throw new RangeError('k cannot exceed array length');
+   }
+   if (k === 1) return arr.map(x => [x]);
+
+   const result = [];
+   const perm = (available, current) => {
+     if (current.length === k) {
+       result.push([...current]);
+       return;
+     }
+     for (let i = 0; i < available.length; i++) {
+       const item = available[i];
+       const remaining = available.slice(0, i).concat(available.slice(i + 1));
+       perm(remaining, [...current, item]);
+     }
+   };
+
+   perm(arr, []);
+   return result;
+ };
+
+export const randomCombination = (arr, k, rng) => {
+    if (!Array.isArray(arr)) {
+      throw new TypeError('arr must be an array');
+    }
+    if (typeof k !== 'number' || !Number.isInteger(k)) {
+      throw new TypeError('k must be an integer');
+    }
+    if (k <= 0) {
+      throw new RangeError('k must be positive');
+    }
+    if (k > arr.length) {
+      throw new RangeError('k cannot exceed array length');
+    }
+    if (!rng || typeof rng.nextInt !== 'function') {
+      throw new TypeError('rng must be an RNG instance');
+    }
    const indices = new Set();
    const n = arr.length;
    

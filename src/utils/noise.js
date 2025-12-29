@@ -23,12 +23,15 @@ const grad = (hash, x, y) => {
 };
 
 export const perlin2D = (rng, x, y, octaves = 1) => {
-   if (typeof x !== 'number' || typeof y !== 'number') {
-     throw new TypeError('x and y must be numbers');
-   }
-   if (typeof octaves !== 'number' || !Number.isInteger(octaves) || octaves <= 0) {
-     throw new Error('octaves must be a positive integer');
-   }
+    if (typeof x !== 'number' || typeof y !== 'number') {
+      throw new TypeError('x and y must be numbers');
+    }
+    if (typeof octaves !== 'number' || !Number.isInteger(octaves)) {
+      throw new TypeError('octaves must be an integer');
+    }
+    if (octaves <= 0) {
+      throw new RangeError('octaves must be positive');
+    }
    let value = 0;
    let amplitude = 1;
    let frequency = 1;
@@ -66,12 +69,15 @@ export const perlin2D = (rng, x, y, octaves = 1) => {
 };
 
 export const valueNoise = (rng, x, y, scale = 1) => {
-   if (typeof x !== 'number' || typeof y !== 'number') {
-     throw new TypeError('x and y must be numbers');
-   }
-   if (typeof scale !== 'number' || scale <= 0) {
-     throw new Error('scale must be a positive number');
-   }
+    if (typeof x !== 'number' || typeof y !== 'number') {
+      throw new TypeError('x and y must be numbers');
+    }
+    if (typeof scale !== 'number') {
+      throw new TypeError('scale must be a number');
+    }
+    if (scale <= 0) {
+      throw new RangeError('scale must be positive');
+    }
    const sx = Math.floor(x * scale);
    const sy = Math.floor(y * scale);
 

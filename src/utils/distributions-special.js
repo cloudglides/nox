@@ -1,13 +1,19 @@
 export const weibull = (rng, shape, scale = 1) => {
-   if (!rng || typeof rng.nextFloat !== 'function') {
-     throw new TypeError('First argument must be RNG instance');
-   }
-   if (typeof shape !== 'number' || shape <= 0) {
-     throw new Error('shape must be a positive number');
-   }
-   if (typeof scale !== 'number' || scale <= 0) {
-     throw new Error('scale must be a positive number');
-   }
+    if (!rng || typeof rng.nextFloat !== 'function') {
+      throw new TypeError('First argument must be RNG instance');
+    }
+    if (typeof shape !== 'number') {
+      throw new TypeError('shape must be a number');
+    }
+    if (shape <= 0) {
+      throw new RangeError('shape must be positive');
+    }
+    if (typeof scale !== 'number') {
+      throw new TypeError('scale must be a number');
+    }
+    if (scale <= 0) {
+      throw new RangeError('scale must be positive');
+    }
    let u = rng.nextFloat();
    while (u === 0 || u === 1) {
      u = rng.nextFloat();
@@ -22,8 +28,11 @@ export const weibull = (rng, shape, scale = 1) => {
    if (typeof mu !== 'number') {
      throw new TypeError('mu must be a number');
    }
-   if (typeof sigma !== 'number' || sigma <= 0) {
-     throw new Error('sigma must be a positive number');
+   if (typeof sigma !== 'number') {
+     throw new TypeError('sigma must be a number');
+   }
+   if (sigma <= 0) {
+     throw new RangeError('sigma must be positive');
    }
    let u1 = rng.nextFloat();
    while (u1 === 0 || u1 === 1) {
@@ -38,8 +47,11 @@ export const weibull = (rng, shape, scale = 1) => {
    if (!rng || typeof rng.nextFloat !== 'function') {
      throw new TypeError('First argument must be RNG instance');
    }
-   if (typeof sigma !== 'number' || sigma <= 0) {
-     throw new Error('sigma must be a positive number');
+   if (typeof sigma !== 'number') {
+     throw new TypeError('sigma must be a number');
+   }
+   if (sigma <= 0) {
+     throw new RangeError('sigma must be positive');
    }
    let u = rng.nextFloat();
    while (u === 0 || u === 1) {
@@ -55,8 +67,11 @@ export const weibull = (rng, shape, scale = 1) => {
    if (typeof median !== 'number') {
      throw new TypeError('median must be a number');
    }
-   if (typeof scale !== 'number' || scale <= 0) {
-     throw new Error('scale must be a positive number');
+   if (typeof scale !== 'number') {
+     throw new TypeError('scale must be a number');
+   }
+   if (scale <= 0) {
+     throw new RangeError('scale must be positive');
    }
    const u = rng.nextFloat();
    return median + scale * Math.tan(Math.PI * (u - 0.5));
