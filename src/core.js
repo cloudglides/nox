@@ -22,3 +22,6 @@ export { bootstrap, jackknife, crossValidation, permutationTest } from './utils/
 export { stratifiedSample, stratifiedSampleProportional, stratify } from './utils/stratified.js';
 export { cdf, ppf, sf } from './utils/probability.js';
 export { WeightedDistribution, CategoricalDistribution, NormalDistribution } from './utils/precomputed.js';
+export { bootstrapCI, meanCI, proportionCI } from './utils/confidence.js';
+export { cohensD, hedgesG, correlation, cramersV, etaSquared, glasssDelta } from './utils/effects.js';
+export { sum, mean, min, max, unique, chunk, flatten, zip, transpose, partition } from './utils/arrays.js';

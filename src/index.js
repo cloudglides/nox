@@ -93,7 +93,26 @@ export {
   sf,
   WeightedDistribution,
   CategoricalDistribution,
-  NormalDistribution
+  NormalDistribution,
+  bootstrapCI,
+  meanCI,
+  proportionCI,
+  cohensD,
+  hedgesG,
+  correlation,
+  cramersV,
+  etaSquared,
+  glasssDelta,
+  sum,
+  mean,
+  min,
+  max,
+  unique,
+  chunk,
+  flatten,
+  zip,
+  transpose,
+  partition
 } from './core.js';
 
 export {
@@ -105,3 +124,4 @@ export {
   Tent,
   Mixer
 } from './generators/index.js';
+
