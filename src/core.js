@@ -21,3 +21,4 @@ export { repeat, until, times } from './utils/helpers.js';
 export { bootstrap, jackknife, crossValidation, permutationTest } from './utils/resampling.js';
 export { stratifiedSample, stratifiedSampleProportional, stratify } from './utils/stratified.js';
 export { cdf, ppf, sf } from './utils/probability.js';
+export { WeightedDistribution, CategoricalDistribution, NormalDistribution } from './utils/precomputed.js';

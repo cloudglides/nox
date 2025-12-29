@@ -90,7 +90,10 @@ export {
   stratify,
   cdf,
   ppf,
-  sf
+  sf,
+  WeightedDistribution,
+  CategoricalDistribution,
+  NormalDistribution
 } from './core.js';
 
 export {
