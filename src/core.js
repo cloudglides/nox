@@ -29,3 +29,5 @@ export { tTest, welchTTest, mannWhitneyU, oneWayAnova } from './utils/hypothesis
 export { zscore, standardize, minMaxScale, logTransform, sqrtTransform, rank, robustScale } from './utils/transforms.js';
 export { LinearRegression, MultipleRegression } from './utils/regression.js';
 export { diff, lag, shift, sma, ema, acf, pacf } from './utils/timeseries.js';
+export { matrixAdd, matrixSub, matrixMul, elementwiseMul, scalarMul, determinant, trace, norm, inverse } from './utils/matrix.js';
+export { trapezoidal, simpsons, adaptiveSimpson, gaussQuadrature, numericalDerivative, numericalSecondDerivative } from './utils/integration.js';

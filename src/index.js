@@ -132,7 +132,22 @@ export {
   sma,
   ema,
   acf,
-  pacf
+  pacf,
+  matrixAdd,
+  matrixSub,
+  matrixMul,
+  elementwiseMul,
+  scalarMul,
+  determinant,
+  trace,
+  norm,
+  inverse as matrixInverse,
+  trapezoidal,
+  simpsons,
+  adaptiveSimpson,
+  gaussQuadrature,
+  numericalDerivative,
+  numericalSecondDerivative
 } from './core.js';
 
 export {
