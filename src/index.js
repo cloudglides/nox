@@ -147,7 +147,16 @@ export {
   adaptiveSimpson,
   gaussQuadrature,
   numericalDerivative,
-  numericalSecondDerivative
+  numericalSecondDerivative,
+  LinearInterpolator,
+  CubicSplineInterpolator,
+  lagrangeInterpolation,
+  polynomialFit,
+  bisection,
+  newtonRaphson,
+  secant,
+  falsePosition,
+  fixedPoint
 } from './core.js';
 
 export {
