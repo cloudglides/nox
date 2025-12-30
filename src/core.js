@@ -27,3 +27,5 @@ export { cohensD, hedgesG, correlation, cramersV, etaSquared, glasssDelta } from
 export { sum, mean, min, max, unique, chunk, flatten, zip, transpose, partition } from './utils/arrays.js';
 export { tTest, welchTTest, mannWhitneyU, oneWayAnova } from './utils/hypothesis.js';
 export { zscore, standardize, minMaxScale, logTransform, sqrtTransform, rank, robustScale } from './utils/transforms.js';
+export { LinearRegression, MultipleRegression } from './utils/regression.js';
+export { diff, lag, shift, sma, ema, acf, pacf } from './utils/timeseries.js';

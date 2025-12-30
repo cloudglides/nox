@@ -123,7 +123,16 @@ export {
   logTransform,
   sqrtTransform,
   rank,
-  robustScale
+  robustScale,
+  LinearRegression,
+  MultipleRegression,
+  diff,
+  lag,
+  shift,
+  sma,
+  ema,
+  acf,
+  pacf
 } from './core.js';
 
 export {
