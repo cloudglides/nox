@@ -33,3 +33,5 @@ export { matrixAdd, matrixSub, matrixMul, elementwiseMul, scalarMul, determinant
 export { trapezoidal, simpsons, adaptiveSimpson, gaussQuadrature, numericalDerivative, numericalSecondDerivative } from './utils/integration.js';
 export { LinearInterpolator, CubicSplineInterpolator, lagrangeInterpolation, polynomialFit } from './utils/interpolation.js';
 export { bisection, newtonRaphson, secant, falsePosition, fixedPoint } from './utils/rootfinding.js';
+export { eulerMethod, rk4, systemEuler, systemRK4, rk45Adaptive } from './utils/odesolvers.js';
+export { svd, qr, cholesky, lu } from './utils/decomposition.js';

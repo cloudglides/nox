@@ -156,7 +156,16 @@ export {
   newtonRaphson,
   secant,
   falsePosition,
-  fixedPoint
+  fixedPoint,
+  eulerMethod,
+  rk4,
+  systemEuler,
+  systemRK4,
+  rk45Adaptive,
+  svd,
+  qr,
+  cholesky,
+  lu
 } from './core.js';
 
 export {
