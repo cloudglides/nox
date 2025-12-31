@@ -9,8 +9,8 @@ export function bisection(f, a, b, tol = 1e-6, maxIter = 100) {
     throw new RangeError('a must be less than b');
   }
 
-  const fa = f(a);
-  const fb = f(b);
+  let fa = f(a);
+  let fb = f(b);
 
   if (fa * fb > 0) {
     throw new RangeError('f(a) and f(b) must have opposite signs');
