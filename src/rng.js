@@ -63,9 +63,11 @@ export class RNG {
       throw new RangeError('min must be less than or equal to max');
     }
 
-    const count = Math.floor((max - min) / step) + 1;
-    const idx = this.nextInt(count);
-    return min + idx * step;
+    const result = [];
+    for (let i = min; i <= max; i += step) {
+      result.push(i);
+    }
+    return result;
   }
 
   choice(arr) {
