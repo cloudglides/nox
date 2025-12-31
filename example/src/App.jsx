@@ -8,7 +8,7 @@ import {
   tTest, welchTTest, oneWayAnova,
   LinearRegression, MultipleRegression,
   diff, lag, sma, ema, acf,
-  matrixAdd, matrixMul, determinant, inverse,
+  matrixAdd, matrixMul, determinant, matrixInverse,
   trapezoidal, simpsons, numericalDerivative,
   LinearInterpolator, CubicSplineInterpolator,
   bisection, newtonRaphson, brent,
@@ -170,7 +170,7 @@ export default function App() {
       const sum = matrixAdd(A, B)
       const prod = matrixMul(A, B)
       const det = determinant(A)
-      const inv = inverse(A)
+      const inv = matrixInverse(A)
       
       setResults({
         title: 'Matrix Operations',

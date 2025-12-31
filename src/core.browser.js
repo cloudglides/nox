@@ -29,7 +29,7 @@ export { tTest, welchTTest, mannWhitneyU, oneWayAnova } from './utils/hypothesis
 export { zscore, standardize, minMaxScale, logTransform, sqrtTransform, rank, robustScale } from './utils/transforms.js';
 export { LinearRegression, MultipleRegression } from './utils/regression.js';
 export { diff, lag, shift, sma, ema, acf, pacf } from './utils/timeseries.js';
-export { matrixAdd, matrixSub, matrixMul, elementwiseMul, scalarMul, determinant, trace, norm, inverse } from './utils/matrix.js';
+export { matrixAdd, matrixSub, matrixMul, elementwiseMul, scalarMul, determinant, trace, norm, inverse as matrixInverse } from './utils/matrix.js';
 export { trapezoidal, simpsons, adaptiveSimpson, gaussQuadrature, numericalDerivative, numericalSecondDerivative } from './utils/integration.js';
 export { LinearInterpolator, CubicSplineInterpolator, lagrangeInterpolation, polynomialFit } from './utils/interpolation.js';
 export { bisection, newtonRaphson, secant, falsePosition, fixedPoint } from './utils/rootfinding.js';
