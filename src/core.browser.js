@@ -36,3 +36,5 @@ export { bisection, newtonRaphson, secant, falsePosition, fixedPoint } from './u
 export { eulerMethod, rk4, systemEuler, systemRK4, rk45Adaptive } from './utils/odesolvers.js';
 export { svd, qr, cholesky, lu } from './utils/decomposition.js';
 export { gradientDescent, momentumDescent, adam, simplex, brent } from './utils/optimization.js';
+export { tTestPValue, zTestPValue, fTestPValue, chi2PValue, uTestPValue, pearsonPValue } from './utils/pvalues.js';
+export { residualDiagnostics, leverageValues, cookDistance, durwinWatson, vif } from './utils/diagnostics.js';

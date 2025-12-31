@@ -170,7 +170,18 @@ export {
   momentumDescent,
   adam,
   simplex,
-  brent
+  brent,
+  tTestPValue,
+  zTestPValue,
+  fTestPValue,
+  chi2PValue,
+  uTestPValue,
+  pearsonPValue,
+  residualDiagnostics,
+  leverageValues,
+  cookDistance,
+  durwinWatson,
+  vif
 } from './core.js';
 
 export {
@@ -182,3 +193,4 @@ export {
   Tent,
   Mixer
 } from './generators/index.js';
+
