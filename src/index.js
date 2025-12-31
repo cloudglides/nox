@@ -181,7 +181,8 @@ export {
   leverageValues,
   cookDistance,
   durwinWatson,
-  vif
+  vif,
+  LogisticRegression
 } from './core.js';
 
 export {
@@ -193,4 +194,3 @@ export {
   Tent,
   Mixer
 } from './generators/index.js';
-

@@ -181,7 +181,8 @@ export {
   leverageValues,
   cookDistance,
   durwinWatson,
-  vif
+  vif,
+  LogisticRegression
 } from './core.browser.js';
 
 export {
