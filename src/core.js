@@ -39,3 +39,4 @@ export { gradientDescent, momentumDescent, adam, simplex, brent } from './utils/
 export { tTestPValue, zTestPValue, fTestPValue, chi2PValue, uTestPValue, pearsonPValue } from './utils/pvalues.js';
 export { residualDiagnostics, leverageValues, cookDistance, durwinWatson, vif } from './utils/diagnostics.js';
 export { LogisticRegression } from './utils/logistic.js';
+export { PolynomialRegression } from './utils/polynomial.js';

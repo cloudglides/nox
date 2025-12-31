@@ -182,7 +182,8 @@ export {
   cookDistance,
   durwinWatson,
   vif,
-  LogisticRegression
+  LogisticRegression,
+  PolynomialRegression
 } from './core.js';
 
 export {
