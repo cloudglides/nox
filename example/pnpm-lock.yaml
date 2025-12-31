@@ -9,8 +9,8 @@ importers:
   .:
     dependencies:
       '@cloudglides/nox':
-        specifier: ^1.1.3
-        version: 1.1.3
+        specifier: ^1.1.6
+        version: 1.1.6
       react:
         specifier: ^18.2.0
         version: 18.3.1
@@ -110,8 +110,8 @@ packages:
     resolution: {integrity: sha512-qQ5m48eI/MFLQ5PxQj4PFaprjyCTLI37ElWMmNs0K8Lk3dVeOdNpB3ks8jc7yM5CDmVC73eMVk/trk3fgmrUpA==}
     engines: {node: '>=6.9.0'}
 
-  '@cloudglides/nox@1.1.3':
-    resolution: {integrity: sha512-J+4i9QRlUPmnI53aBJX5b48SinsewpGGmqUC0+T9MR03leb9MPZEghaqUQjD3WVcqGUy0x2/U5B3ZAHt0n8mGg==}
+  '@cloudglides/nox@1.1.6':
+    resolution: {integrity: sha512-VWMG2mVbWyhQ1VLAzw6INIoVGrGboExiRUXsOex8TGHjTsw1q73/ZGbaQmPL1Hprw+60MZSXma9syJhMGai7cg==}
 
   '@esbuild/aix-ppc64@0.21.5':
     resolution: {integrity: sha512-1SDgH6ZSPTlggy1yI6+Dbkiz8xzpHJEVAlF/AM1tHPLsf5STom9rwtjE4hKAF20FfXXNTFqEYXyJNWh1GiZedQ==}
@@ -667,7 +667,7 @@ snapshots:
       '@babel/helper-string-parser': 7.27.1
       '@babel/helper-validator-identifier': 7.28.5
 
-  '@cloudglides/nox@1.1.3': {}
+  '@cloudglides/nox@1.1.6': {}
 
   '@esbuild/aix-ppc64@0.21.5':
     optional: true
