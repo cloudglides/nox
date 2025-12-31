@@ -165,7 +165,12 @@ export {
   svd,
   qr,
   cholesky,
-  lu
+  lu,
+  gradientDescent,
+  momentumDescent,
+  adam,
+  simplex,
+  brent
 } from './core.js';
 
 export {

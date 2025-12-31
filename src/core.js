@@ -35,3 +35,4 @@ export { LinearInterpolator, CubicSplineInterpolator, lagrangeInterpolation, pol
 export { bisection, newtonRaphson, secant, falsePosition, fixedPoint } from './utils/rootfinding.js';
 export { eulerMethod, rk4, systemEuler, systemRK4, rk45Adaptive } from './utils/odesolvers.js';
 export { svd, qr, cholesky, lu } from './utils/decomposition.js';
+export { gradientDescent, momentumDescent, adam, simplex, brent } from './utils/optimization.js';

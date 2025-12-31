@@ -26,11 +26,34 @@ header p {
   font-size: 0.95rem;
 }
 
+.tabs-container {
+  padding: 1.5rem 2rem;
+  border-bottom: 1px solid #eee;
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.category {
+  margin-bottom: 1.5rem;
+}
+
+.category:last-child {
+  margin-bottom: 0;
+}
+
+.category h3 {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #666;
+  margin: 0 0 0.6rem 0;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
 .tabs {
   display: flex;
   gap: 0.5rem;
-  padding: 1.5rem 2rem;
-  border-bottom: 1px solid #eee;
   flex-wrap: wrap;
 }
 
@@ -39,7 +62,7 @@ header p {
   border: 1px solid #000;
   background: #fff;
   cursor: pointer;
-  font-size: 0.9rem;
+  font-size: 0.85rem;
   font-weight: 500;
   transition: 0.15s;
 }
@@ -56,7 +79,7 @@ header p {
 .content {
   flex: 1;
   padding: 2rem;
-  max-width: 600px;
+  max-width: 800px;
   margin: 0 auto;
   width: 100%;
 }
@@ -84,7 +107,7 @@ header p {
 
 .result-row .label {
   font-weight: 600;
-  min-width: 110px;
+  min-width: 140px;
   color: #333;
 }
 
@@ -118,14 +141,22 @@ footer a:hover {
     font-size: 1.8rem;
   }
   
-  .tabs {
+  .tabs-container {
     padding: 1rem;
+  }
+
+  .category h3 {
+    font-size: 0.8rem;
+    margin-bottom: 0.4rem;
+  }
+  
+  .tabs {
     gap: 0.3rem;
   }
   
   .tabs button {
     padding: 0.4rem 0.8rem;
-    font-size: 0.85rem;
+    font-size: 0.75rem;
   }
   
   .content {
