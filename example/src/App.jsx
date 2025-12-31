@@ -2,9 +2,8 @@ import { useState } from 'react'
 import {
   rng, deterministic, normal, exponential, poisson, uniform,
   shuffle, sample, pick, weightedPick,
-  meanTest, varianceTest, kolmogorovSmirnovTest,
   cohensD, correlation, cramersV,
-  bootstrapCI, meanCI,
+  meanCI,
   tTest, welchTTest, oneWayAnova,
   LinearRegression, MultipleRegression,
   diff, lag, sma, ema, acf,
@@ -74,27 +73,27 @@ export default function App() {
     },
 
     statistics: () => {
-      const r = rng()
-      const data = r.floats(100).map(x => x * 10)
-      const mean_val = mean(data)
-      const std = Math.sqrt(data.reduce((s, x) => s + (x - mean_val) ** 2, 0) / data.length)
-      
-      const data2 = r.floats(50).map(x => x * 8)
-      const d = cohensD(data, data2)
-      const corr = correlation(data.slice(0, 50), data2.slice(0, 50))
-      
-      setResults({
-        title: 'Statistics & Effect Sizes',
-        data: [
-          ['mean', FORMAT(mean_val)],
-          ['min', FORMAT(min(data))],
-          ['max', FORMAT(max(data))],
-          ["Cohen's d", FORMAT(d)],
-          ['correlation', FORMAT(corr)],
-          ['KS-test', FORMAT(kolmogorovSmirnovTest(data.map(x => x / 10)))]
-        ]
-      })
-    },
+       const r = rng()
+       const data = r.floats(100).map(x => x * 10)
+       const mean_val = mean(data)
+       const std = Math.sqrt(data.reduce((s, x) => s + (x - mean_val) ** 2, 0) / data.length)
+       
+       const data2 = r.floats(50).map(x => x * 8)
+       const d = cohensD(data, data2)
+       const corr = correlation(data.slice(0, 50), data2.slice(0, 50))
+       
+       setResults({
+         title: 'Statistics & Effect Sizes',
+         data: [
+           ['mean', FORMAT(mean_val)],
+           ['min', FORMAT(min(data))],
+           ['max', FORMAT(max(data))],
+           ["Cohen's d", FORMAT(d)],
+           ['correlation', FORMAT(corr)],
+           ['std dev', FORMAT(std)]
+         ]
+       })
+     },
 
     hypothesis: () => {
       const r = rng()
