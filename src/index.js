@@ -183,7 +183,8 @@ export {
   durwinWatson,
   vif,
   LogisticRegression,
-  PolynomialRegression
+  PolynomialRegression,
+  KMeans
 } from './core.js';
 
 export {
@@ -195,3 +196,4 @@ export {
   Tent,
   Mixer
 } from './generators/index.js';
+

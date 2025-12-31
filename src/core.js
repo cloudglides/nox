@@ -40,3 +40,4 @@ export { tTestPValue, zTestPValue, fTestPValue, chi2PValue, uTestPValue, pearson
 export { residualDiagnostics, leverageValues, cookDistance, durwinWatson, vif } from './utils/diagnostics.js';
 export { LogisticRegression } from './utils/logistic.js';
 export { PolynomialRegression } from './utils/polynomial.js';
+export { KMeans } from './utils/clustering.js';

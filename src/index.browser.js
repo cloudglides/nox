@@ -183,7 +183,8 @@ export {
   durwinWatson,
   vif,
   LogisticRegression,
-  PolynomialRegression
+  PolynomialRegression,
+  KMeans
 } from './core.browser.js';
 
 export {
