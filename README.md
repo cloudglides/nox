@@ -1,6 +1,27 @@
-# nox
+<p align="center"><img width="447" height="293" alt="logo" src="https://github.com/user-attachments/assets/9db55aaf-4929-4f8f-8683-d6f988c12cfc" /></p>
 
-Simple, unpredictable random number generator.
+
+
+
+
+
+
+<h1 align="center">Nox</h1>
+<p align="center">
+  <a href="#install">Install</a> •
+  <a href="#quick-start">Quick start</a> •
+  <a href="#reproducible">API reference</a>
+</p>
+
+<p align="center">
+  <a href="https://www.npmjs.com/package/@cloudglides/nox">NPM</a> •
+  <a href="https://github.com/cloudglides/nox">GitHub</a>
+</p>
+
+<p align="center">
+  Simple, unpredictable random number generator.
+</p>
+
 
 ## Install
 
